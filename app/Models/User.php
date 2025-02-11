@@ -58,9 +58,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Lecturer::class);
     }
-
-    public function coordinator(): HasOne
-    {
-        return $this->hasOne(Coordinator::class);
-    }
 }

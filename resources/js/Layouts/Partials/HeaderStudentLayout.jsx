@@ -1,40 +1,47 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import NavigationMenu from "@/Components/NavigationMenu";
-import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
-import { Button } from "@/Components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/Components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { Disclosure } from "@headlessui/react";
-import { Link } from "@inertiajs/react";
-import { IconChevronCompactDown, IconLayoutSidebar, IconLogout2, IconX } from "@tabler/icons-react";
+import ApplicationLogo from '@/Components/ApplicationLogo';
+import NavigationMenu from '@/Components/NavigationMenu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Button } from '@/Components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/Components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
+import { Disclosure } from '@headlessui/react';
+import { Link } from '@inertiajs/react';
+import { IconChevronCompactDown, IconLayoutSidebar, IconLogout2, IconX } from '@tabler/icons-react';
 
-export default function HeaderStudentLayout({url}) {
-    return(
+export default function HeaderStudentLayout({ auth, url }) {
+    return (
         <>
             <Disclosure
-                as='nav'
-                className='py-4 border-b border-blue300 border-opacity-25 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 lg:border-none'
+                as="nav"
+                className="border-blue300 border-b border-opacity-25 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 py-4 lg:border-none"
             >
                 {({ open }) => (
                     <>
                         <div className="px-6 lg:px-24">
-                            <div className="relative flex items-center justify-between h-16">
+                            <div className="relative flex h-16 items-center justify-between">
                                 <div className="flex items-center">
                                     <ApplicationLogo
-                                        bgLogo='from-orange-500 via-orange-600 to-orange-600'
-                                        colorLogo='text-white'
-                                        colorText='text-white'
+                                        bgLogo="from-orange-500 via-orange-600 to-orange-600"
+                                        colorLogo="text-white"
+                                        colorText="text-white"
                                     />
                                 </div>
 
                                 <div className="flex lg:hidden">
-                                    {/* mobile */} 
-                                    <Disclosure.Button className='relative inline-flex items-center justify-center p-2 text-white rounded-xl hover:text-white focus:outline-non'>
-                                        <span className="absolute -inset-0.5"/>
-                                        { open ? (
-                                            <IconX className="block size-6"/>
+                                    {/* mobile */}
+                                    <Disclosure.Button className="focus:outline-non relative inline-flex items-center justify-center rounded-xl p-2 text-white hover:text-white">
+                                        <span className="absolute -inset-0.5" />
+                                        {open ? (
+                                            <IconX className="block size-6" />
                                         ) : (
-                                            <IconLayoutSidebar className="block size-6"/>
+                                            <IconLayoutSidebar className="block size-6" />
                                         )}
                                     </Disclosure.Button>
                                 </div>
@@ -44,24 +51,24 @@ export default function HeaderStudentLayout({url}) {
                                         <div className="hidden lg:mx-10 lg:block">
                                             <div className="flex space-x-4">
                                                 <NavigationMenu
-                                                    url='#'
+                                                    url="#"
                                                     active={url.startsWith('students/dashboard')}
-                                                    title='Dashboard'
+                                                    title="Dashboard"
                                                 />
                                                 <NavigationMenu
-                                                    url='#'
+                                                    url="#"
                                                     active={url.startsWith('students/activities')}
-                                                    title='Kegiatan MBKM'
+                                                    title="Kegiatan MBKM"
                                                 />
                                                 <NavigationMenu
-                                                    url='#'
+                                                    url="#"
                                                     active={url.startsWith('students/activity-registration')}
-                                                    title='Kegiatan Aktif'
+                                                    title="Kegiatan Aktif"
                                                 />
                                                 <NavigationMenu
-                                                    url='#'
+                                                    url="#"
                                                     active={url.startsWith('students/exam-schedules')}
-                                                    title='Jadwal Ujian'
+                                                    title="Jadwal Ujian"
                                                 />
                                             </div>
                                         </div>
@@ -70,52 +77,61 @@ export default function HeaderStudentLayout({url}) {
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
                                                 <Button
-                                                    variant='blue'
-                                                    size='xl'
+                                                    variant="blue"
+                                                    size="xl"
                                                     className="data-[state=open]:bg-orange-500 data-[state=open]:text-white"
                                                 >
-                                                    <Avatar className='size-8 rounded-lg'>
-                                                        <AvatarFallback className='text-blue-600 rounded-lg'>X</AvatarFallback>
+                                                    <Avatar className="size-8 rounded-lg">
+                                                        <AvatarImage src={auth.avatar} />
+                                                        <AvatarFallback className="rounded-lg text-blue-600">
+                                                            {auth.name.substring(0, 1)}
+                                                        </AvatarFallback>
                                                     </Avatar>
 
-                                                    <div className="grid flex-1 text-sm leading-tight text-left">
-                                                        <span className="font-semibold truncate">Full name</span>
-                                                        <span className="text-xs truncate">fullname@gmail.com</span>
+                                                    <div className="grid flex-1 text-left text-sm leading-tight">
+                                                        <span className="truncate font-semibold">{auth.name}</span>
+                                                        <span className="truncate text-xs">
+                                                            {auth.student.student_number}
+                                                        </span>
                                                     </div>
 
-                                                    <IconChevronCompactDown className="ml-auto size-4"/>
+                                                    <IconChevronCompactDown className="ml-auto size-4" />
                                                 </Button>
                                             </DropdownMenuTrigger>
 
                                             <DropdownMenuContent
-                                                className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
-                                                side='bottom'
-                                                align='end'
+                                                className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                                                side="bottom"
+                                                align="end"
                                                 sideOffset={4}
                                             >
-                                                <DropdownMenuLabel className='p-0 font-normal'>
+                                                <DropdownMenuLabel className="p-0 font-normal">
                                                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                                        <Avatar className='size-8 rounded-lg'>
-                                                            <AvatarFallback className='text-blue-600 rounded-lg'>
-                                                                X
+                                                        <Avatar className="size-8 rounded-lg">
+                                                            <AvatarImage src={auth.avatar} />
+                                                            <AvatarFallback className="rounded-lg text-blue-600">
+                                                                {auth.name.substring(0, 1)}
                                                             </AvatarFallback>
                                                         </Avatar>
 
-                                                        <div className="grid flex-1 text-sm leading-tight text-left">
-                                                            <span className="font-semibold truncate">Full name</span>
-                                                            <span className="text-xs truncate">fullname@gmail.com</span>
+                                                        <div className="grid flex-1 text-left text-sm leading-tight">
+                                                            <span className="truncate font-semibold">{auth.name}</span>
+                                                            <span className="truncate text-xs">
+                                                                {auth.student.student_number}
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </DropdownMenuLabel>
 
-                                                <DropdownMenuSeparator/>
+                                                <DropdownMenuSeparator />
                                                 <DropdownMenuItem asChild>
                                                     <Link
                                                         href={route('logout')}
-                                                        method='post'
-                                                        as='button'
+                                                        method="post"
+                                                        as="button"
+                                                        className="w-full"
                                                     >
-                                                        <IconLogout2/>
+                                                        <IconLogout2 />
                                                         Logout
                                                     </Link>
                                                 </DropdownMenuItem>
@@ -126,84 +142,87 @@ export default function HeaderStudentLayout({url}) {
                             </div>
                         </div>
 
-                        <Disclosure.Panel className='lg:hidden'>
+                        <Disclosure.Panel className="lg:hidden">
                             {/* mobile */}
-                            <div className="px-2 pt-2 pb-3 space-y-1">
+                            <div className="space-y-1 px-2 pb-3 pt-2">
                                 <Disclosure.Button
-                                    as='a'
-                                    href='#'
+                                    as="a"
+                                    href="#"
                                     className={cn(
                                         url.startsWith('/students/dashboard')
-                                        ? 'bg-blue-500 text-white'
-                                        : 'text-white hover:bg-blue-500',
-                                    'block rounded-md px-3 py-2 text-base font-medium'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'text-white hover:bg-blue-500',
+                                        'block rounded-md px-3 py-2 text-base font-medium',
                                     )}
                                 >
                                     Dashboard
                                 </Disclosure.Button>
 
                                 <Disclosure.Button
-                                    as='a'
-                                    href='#'
+                                    as="a"
+                                    href="#"
                                     className={cn(
                                         url.startsWith('/students/activities')
-                                        ? 'bg-blue-500 text-white'
-                                        : 'text-white hover:bg-blue-500',
-                                    'block rounded-md px-3 py-2 text-base font-medium'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'text-white hover:bg-blue-500',
+                                        'block rounded-md px-3 py-2 text-base font-medium',
                                     )}
                                 >
                                     Kegiatan MBKM
                                 </Disclosure.Button>
 
                                 <Disclosure.Button
-                                    as='a'
-                                    href='#'
+                                    as="a"
+                                    href="#"
                                     className={cn(
                                         url.startsWith('/students/activity-registration')
-                                        ? 'bg-blue-500 text-white'
-                                        : 'text-white hover:bg-blue-500',
-                                    'block rounded-md px-3 py-2 text-base font-medium'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'text-white hover:bg-blue-500',
+                                        'block rounded-md px-3 py-2 text-base font-medium',
                                     )}
                                 >
                                     Kegiatan Aktif
                                 </Disclosure.Button>
 
                                 <Disclosure.Button
-                                    as='a'
-                                    href='#'
+                                    as="a"
+                                    href="#"
                                     className={cn(
                                         url.startsWith('/students/exam-schedules')
-                                        ? 'bg-blue-500 text-white'
-                                        : 'text-white hover:bg-blue-500',
-                                    'block rounded-md px-3 py-2 text-base font-medium'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'text-white hover:bg-blue-500',
+                                        'block rounded-md px-3 py-2 text-base font-medium',
                                     )}
                                 >
                                     Jadwal Ujian
                                 </Disclosure.Button>
 
-                                <div className="pt-4 pb-3">
+                                <div className="pb-3 pt-4">
                                     <div className="flex items-center px-5">
                                         <div className="flex-shrink-0">
                                             <Avatar>
-                                                <AvatarFallback>X</AvatarFallback>
+                                                <AvatarImage src={auth.avatar} />
+                                                <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
                                             </Avatar>
                                         </div>
 
                                         <div className="ml-3">
-                                            <div className="text-base font-medium text-white">Full name</div>
-                                            <div className="text-sm font-medium text-white">fullname@gmail.com</div>
+                                            <div className="text-base font-medium text-white">{auth.name}</div>
+                                            <div className="text-sm font-medium text-white">
+                                                {auth.student.student_number}
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className="px-2 mt-3 space-y-1">
-                                        <Disclosure.Button
-                                            as='button'
+                                    <div className="mt-3 space-y-1 px-0">
+                                        <Link
                                             href={route('logout')}
-                                            method='post'
-                                            className='block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-blue-500'
+                                            method="post"
+                                            as="button"
+                                            className="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-white hover:bg-blue-500"
                                         >
                                             Logout
-                                        </Disclosure.Button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -211,8 +230,8 @@ export default function HeaderStudentLayout({url}) {
                     </>
                 )}
             </Disclosure>
-            
+
             <header className="py-6"></header>
         </>
-    )
+    );
 }

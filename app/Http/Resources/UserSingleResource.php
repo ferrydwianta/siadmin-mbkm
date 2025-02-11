@@ -37,9 +37,6 @@ class UserSingleResource extends JsonResource
                 'lecturer_number' => $this->lecturer?->lecturer_number,
                 'academic_title' => $this->lecturer?->academic_title,
             ]),
-            'coordinator' => $this->when($this->hasRole('Coordinator'), [
-                'id' => $this->coordinator?->id,
-            ])
         ];
     }
 }
