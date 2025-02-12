@@ -3,11 +3,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Link } from '@inertiajs/react';
 import {
     IconBooks,
+    IconBuildingSkyscraper,
     IconCalendar,
     IconCalendarTime,
     IconCircleKey,
     IconLayout2,
     IconLogout2,
+    IconPencil,
     IconUsers,
     IconUsersGroup,
 } from '@tabler/icons-react';
@@ -62,6 +64,20 @@ export default function Sidebar({ auth, url }) {
                             active={url.startsWith('/admin/lecturers')}
                             title="Dosen"
                             icon={IconUsersGroup}
+                        />
+
+                        <div className="px-3 py-2 text-xs font-medium text-white">MBKM</div>
+                        <NavLink
+                            url={route('admin.partners.index')}
+                            active={url.startsWith('/admin/partners')}
+                            title="Mitra MBKM"
+                            icon={IconBuildingSkyscraper}
+                        />
+                        <NavLink
+                            url="#"
+                            active={url.startsWith('/admin/activities')}
+                            title="Kegiatan MKBM"
+                            icon={IconPencil}
                         />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>

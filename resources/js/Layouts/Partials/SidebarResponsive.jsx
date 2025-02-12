@@ -1,6 +1,7 @@
 import NavLink from '@/Components/NavLink';
 import {
     IconBooks,
+    IconBuildingSkyscraper,
     IconCalendar,
     IconCalendarTime,
     IconCircleKey,
@@ -44,6 +45,20 @@ export default function SidebarResponsive({ auth, url }) {
                             active={url.startsWith('/admin/lecturers')}
                             title="Dosen"
                             icon={IconUsersGroup}
+                        />
+
+                        <div className="px-3 py-2 text-xs font-medium text-white">MBKM</div>
+                        <NavLink
+                            url={route('admin.partners.index')}
+                            active={url.startsWith('/admin/partners')}
+                            title="Mitra MBKM"
+                            icon={IconBuildingSkyscraper}
+                        />
+                        <NavLink
+                            url="#"
+                            active={url.startsWith('/admin/activities')}
+                            title="Kegiatan MKBM"
+                            icon={IconPencil}
                         />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>

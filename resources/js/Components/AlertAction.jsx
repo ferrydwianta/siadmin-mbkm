@@ -4,10 +4,11 @@ import {
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from '@radix-ui/react-alert-dialog';
-import { AlertDialogFooter, AlertDialogHeader } from './ui/alert-dialog';
+} from '@/Components/ui/alert-dialog';
 
 export default function AlertAction({
     trigger,

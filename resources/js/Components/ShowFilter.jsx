@@ -16,9 +16,9 @@ export default function ShowFilter({ params, className = '' }) {
                     <Separator orientation="vertical" className="mx-2 h-6" />
 
                     {Object.entries(params).map(
-                        ([key, value], index) =>
+                        ([key, value]) =>
                             value && (
-                                <Badge key={index} variant="white" className="mr-2">
+                                <Badge key={key} variant="white" className="mr-2">
                                     {key.charAt(0).toUpperCase() + key.slice(1)} : {value}
                                 </Badge>
                             ),
