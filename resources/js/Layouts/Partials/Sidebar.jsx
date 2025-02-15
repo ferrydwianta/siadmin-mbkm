@@ -3,13 +3,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Link } from '@inertiajs/react';
 import {
     IconBooks,
+    IconBriefcase,
     IconBuildingSkyscraper,
     IconCalendar,
     IconCalendarTime,
     IconCircleKey,
     IconLayout2,
     IconLogout2,
-    IconPencil,
+    IconScript,
     IconUsers,
     IconUsersGroup,
 } from '@tabler/icons-react';
@@ -37,7 +38,7 @@ export default function Sidebar({ auth, url }) {
                 {auth.roles.some((role) => ['Admin'].includes(role)) && (
                     <>
                         <NavLink
-                            url="#"
+                            url={route('admin.dashboard')}
                             active={url.startsWith('/admin/dashboard')}
                             title="Dashboard"
                             icon={IconLayout2}
@@ -74,10 +75,16 @@ export default function Sidebar({ auth, url }) {
                             icon={IconBuildingSkyscraper}
                         />
                         <NavLink
-                            url="#"
+                            url={route('admin.activities.index')}
                             active={url.startsWith('/admin/activities')}
                             title="Kegiatan MKBM"
-                            icon={IconPencil}
+                            icon={IconBriefcase}
+                        />
+                        <NavLink
+                            url="#"
+                            active={url.startsWith('/admin/request-activities')}
+                            title="Pengajuan Kegiatan"
+                            icon={IconScript}
                         />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>

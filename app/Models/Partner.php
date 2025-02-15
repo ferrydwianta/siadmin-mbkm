@@ -27,7 +27,7 @@ class Partner extends Model
         ];
     }
 
-    protected function activities(): HasMany
+    public function activities(): HasMany
     {
         return $this->hasMany(Activity::class);
     }

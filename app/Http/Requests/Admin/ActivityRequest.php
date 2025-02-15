@@ -3,16 +3,15 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class PartnerRequest extends FormRequest
+class ActivityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->user()->hasRole('Admin'); // Already logged in and role is admin
+        return auth()->check() && auth()->user()->hasRole('Admin');
     }
 
     /**
@@ -23,37 +22,30 @@ class PartnerRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'partner_id' => [
+                'required',
+                'exists:partners,id',
+            ],
             'name' => [
                 'required',
                 'string',
                 'min:3',
-                'max:255'
+                'max: 255',
             ],
             'description' => [
                 'required',
                 'string',
                 'min:0',
-                // 'max:5000'
             ],
-            'logo' => Rule::when($this->routeIs('admin.partners.store'), [
-                'required',
-                'mimes:png, jpg, jpeg, webp',
-                'max:2048',
-            ]),
-            Rule::when($this->routeIs('admin.partners.update'), [
-                'nullable',
-                'mimes:png, jpg, jpeg, webp',
-                'max:2048',
-            ]),
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'name' => 'Nama',
+            'partner_id' => 'Mitra MBKM',
+            'name' => 'Nama Kegiatan',
             'description' => 'Deskripsi',
-            'logo' => 'Logo',
         ];
     }
 }

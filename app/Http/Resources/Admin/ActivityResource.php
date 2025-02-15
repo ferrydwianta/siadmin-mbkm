@@ -20,6 +20,12 @@ class ActivityResource extends JsonResource
             'description' => $this->description,
             'slug' => $this->slug,
             'created_at' => $this->created_at,
+            'partner' => $this->whenLoaded('partner', [
+                'id' => $this->partner?->id,
+                'name' => $this->partner?->name,
+                'description' => $this->partner?->description,
+                'logo' => $this->partner?->logo,
+            ])
         ];
     }
 }

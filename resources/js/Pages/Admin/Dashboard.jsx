@@ -2,7 +2,7 @@ import CardStat from '@/Components/CardStat';
 import HeaderTitle from '@/Components/HeaderTitle';
 import AppLayout from '@/Layouts/AppLayout';
 import { usePage } from '@inertiajs/react';
-import { IconBooks, IconLayout2, IconPencil, IconUsers } from '@tabler/icons-react';
+import { IconBriefcase, IconBuildingSkyscraper, IconLayout2, IconUsers } from '@tabler/icons-react';
 
 export default function Dashboard(props) {
     const auth = usePage().props.auth.user;
@@ -24,19 +24,19 @@ export default function Dashboard(props) {
             <div className="mb-8 grid gap-4 lg:grid-cols-3">
                 <CardStat
                     data={{
-                        title: 'Total Mata Kuliah',
-                        icon: IconBooks,
+                        title: 'Total Mitra MBKM',
+                        icon: IconBuildingSkyscraper,
                         background: 'text-white bg-gradient-to-r from-red-400 via-red-500 to-red-500',
                         iconClassName: 'text-white',
                     }}
                 >
-                    <div className="text-2xl font-bold">{props.count.courses}</div>
+                    <div className="text-2xl font-bold">{props.count.partners}</div>
                 </CardStat>
 
                 <CardStat
                     data={{
                         title: 'Total Kegiatan MBKM Terdaftar',
-                        icon: IconPencil,
+                        icon: IconBriefcase,
                         background: 'text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-500',
                         iconClassName: 'text-white',
                     }}

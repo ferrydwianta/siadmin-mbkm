@@ -4,27 +4,21 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconBuildingSkyscraper, IconCheck } from '@tabler/icons-react';
-import { useRef } from 'react';
+import { IconArrowLeft, IconBriefcase, IconCheck } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
-export default function Edit(props) {
-    const fileInputLogo = useRef();
+export default function Create(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: props.partner.name ?? '',
-        description: props.partner.description ?? '',
-        logo: props.partner.logo ?? null,
+        partner_id: null,
+        name: '',
+        description: '',
         _method: props.page_settings.method,
     });
-
-    const onHandleReset = () => {
-        reset();
-        fileInputLogo.current.value = null;
-    };
-
+    const onHandleChange = (e) => setData(e.target.name, e.target.value);
     const onHandleSubmit = (e) => {
         e.preventDefault();
         post(props.page_settings.action, {
@@ -36,6 +30,7 @@ export default function Edit(props) {
             },
         });
     };
+    const onHandleReset = () => reset();
 
     return (
         <div className="flex w-full flex-col pb-32">
@@ -43,11 +38,11 @@ export default function Edit(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconBuildingSkyscraper}
+                    icon={IconBriefcase}
                 />
 
                 <Button variant="orange" size="xl" className="w-full lg:w-auto" asChild>
-                    <Link href={route('admin.partners.index')}>
+                    <Link href={route('admin.activities.index')}>
                         <IconArrowLeft className="size-4" />
                         Kembali
                     </Link>
@@ -59,16 +54,39 @@ export default function Edit(props) {
                     <form onSubmit={onHandleSubmit}>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
                             <div className="col-span-full">
+                                <Label htmlFor="partner_id">Mitra MBKM</Label>
+                                <Select
+                                    defaultValue={data.partner_id}
+                                    onValueChange={(value) => setData('partner_id', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue>
+                                            {props.partners.find((partner) => partner.value == data.partner_id)
+                                                ?.label ?? 'Pilih Mitra MBKM'}
+                                        </SelectValue>
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        {props.partners.map((partner, index) => (
+                                            <SelectItem key={index} value={partner.value}>
+                                                {partner.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                {errors.partner_id && <InputError message={errors.partner_id} />}
+                            </div>
+
+                            <div className="col-span-full">
                                 <Label htmlFor="name">Nama</Label>
                                 <Input
                                     type="text"
                                     name="name"
                                     id="name"
-                                    placeholder="Masukkan nama mitra"
                                     value={data.name}
-                                    onChange={(e) => setData(e.target.name, e.target.value)}
+                                    onChange={onHandleChange}
+                                    placeholder="Masukkan nama kegiatan MBKM"
                                 />
-
                                 {errors.name && <InputError message={errors.name} />}
                             </div>
 
@@ -77,7 +95,7 @@ export default function Edit(props) {
                                 <textarea
                                     name="description"
                                     id="description"
-                                    placeholder="Masukkan tentang mitra"
+                                    placeholder="Masukkan tentang kegiatan"
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}
                                     className="w-full rounded-xl border-gray-300 p-2 text-sm focus:border-blue-700"
@@ -85,19 +103,6 @@ export default function Edit(props) {
                                 />
 
                                 {errors.description && <InputError message={errors.description} />}
-                            </div>
-
-                            <div className="col-span-full">
-                                <Label htmlFor="logo">Logo</Label>
-                                <Input
-                                    type="file"
-                                    name="logo"
-                                    id="logo"
-                                    onChange={(e) => setData(e.target.name, e.target.files[0])}
-                                    ref={fileInputLogo}
-                                />
-
-                                {errors.logo && <InputError message={errors.logo} />}
                             </div>
                         </div>
 
@@ -118,5 +123,4 @@ export default function Edit(props) {
     );
 }
 
-// Persistant layout
-Edit.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
+Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
