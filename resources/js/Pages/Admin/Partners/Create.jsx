@@ -17,6 +17,8 @@ export default function Create(props) {
         name: '',
         description: '',
         logo: null,
+        address: '',
+        contact: '',
         _method: props.page_settings.method,
     });
 
@@ -98,6 +100,34 @@ export default function Create(props) {
                                 />
 
                                 {errors.logo && <InputError message={errors.logo} />}
+                            </div>
+
+                            <div className="col-span-full">
+                                <Label htmlFor="address">Alamat Mitra</Label>
+                                <Input
+                                    type="text"
+                                    name="address"
+                                    id="address"
+                                    placeholder="Masukkan alamat mitra"
+                                    value={data.address}
+                                    onChange={(e) => setData(e.target.name, e.target.value)}
+                                />
+
+                                {errors.address && <InputError message={errors.address} />}
+                            </div>
+
+                            <div className="col-span-full">
+                                <Label htmlFor="contact">Contact Person</Label>
+                                <Input
+                                    type="text"
+                                    name="contact"
+                                    id="contact"
+                                    placeholder="Masukkan contact person mitra"
+                                    value={data.contact}
+                                    onChange={(e) => setData(e.target.name, e.target.value)}
+                                />
+
+                                {errors.contact && <InputError message={errors.contact} />}
                             </div>
                         </div>
 

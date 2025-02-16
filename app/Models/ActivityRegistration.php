@@ -12,8 +12,10 @@ class ActivityRegistration extends Model
     protected $fillable = [
         'student_id',
         'academic_year_id',
+        'activity_id',
         'status',
         'notes',
+        'semester',
     ];
 
     protected function casts(): array
@@ -31,6 +33,11 @@ class ActivityRegistration extends Model
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class);
+    }
+
+    public function activity(): BelongsTo
+    {
+        return $this->belongsTo(Activity::class);
     }
 
     public function conversions(): HasMany

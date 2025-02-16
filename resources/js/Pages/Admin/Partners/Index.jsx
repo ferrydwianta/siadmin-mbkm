@@ -129,6 +129,8 @@ export default function Index(props) {
                                     </TableHead>
                                     <TableHead>Deskripsi</TableHead>
                                     <TableHead>Logo</TableHead>
+                                    <TableHead>Alamat</TableHead>
+                                    <TableHead>Contact Person</TableHead>
                                     <TableHead>
                                         <Button
                                             variant="ghost"
@@ -159,6 +161,8 @@ export default function Index(props) {
                                                 <AvatarFallback>{partner.name.substring(0, 1)}</AvatarFallback>
                                             </Avatar>
                                         </TableCell>
+                                        <TableCell>{partner.address ? partner.address : '-'}</TableCell>
+                                        <TableCell>{partner.contact ? partner.contact : '-'}</TableCell>
                                         <TableCell>{formatDateIndo(partner.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">

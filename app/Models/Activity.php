@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Activity extends Model
 {
@@ -32,6 +33,11 @@ class Activity extends Model
         return $this->belongsTo(Partner::class);
     }
 
+    public function acitivityRegistrations(): HasMany
+    {
+        return $this->hasMany(ActivityRegistration::class);
+    }
+
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function($query, $search) {
@@ -52,17 +58,4 @@ class Activity extends Model
             };
         });
     }
-
-    // public function scopeSorting(Builder $query, array $sorts): void
-    // {
-    //     $query->select('activities.*') // Ensure only activities columns are selected
-    //         ->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
-    //         match ($sorts['field']) {
-    //             'partner_id' => $query
-    //                 ->join('partners', 'activities.partner_id', '=', 'partners.id')
-    //                 ->orderBy('partners.name', $sorts['direction']),
-    //             default => $query ->orderBy("activities.{$sorts['field']}", $sorts['direction']),
-    //         };
-    //     });
-    // }
 }

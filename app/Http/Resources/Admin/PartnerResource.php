@@ -21,6 +21,8 @@ class PartnerResource extends JsonResource
             'description' => $this->description,
             'logo' => $this->logo ? Storage::url($this->url) : null,
             'slug' => $this->slug,
+            'address' => $this->address,
+            'contact' => $this->contact,
             'created_at' => $this->created_at,
         ];
     }

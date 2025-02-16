@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('activity_registrations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('activity_id')->constrained()->cascadeOnDelete();
             $table->foreignId('academic_year_id')->constrained()->cascadeOnDelete();
             $table->string('status')->default(StudentStatus::PENDING->value);
             $table->string('notes')->nullable();

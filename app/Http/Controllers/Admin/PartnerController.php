@@ -19,7 +19,7 @@ class PartnerController extends Controller
     public function index(): Response
     {
         $partners = Partner::query()
-            ->select(['id', 'name', 'description', 'logo', 'slug', 'created_at'])
+            ->select(['id', 'name', 'description', 'logo', 'slug', 'address', 'contact', 'created_at'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->paginate(request()->load ?? 10);
@@ -63,6 +63,8 @@ class PartnerController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'logo' => $this->upload_file($request, 'logo', 'partners'),
+                'address' => $request->address,
+                'contact' => $request->contact,
             ]);
 
             flashMessage(MessageType::CREATED->message('Mitra MBKM'));
@@ -93,6 +95,8 @@ class PartnerController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'logo' => $this->update_file($request, $partner, 'logo', 'partners'),
+                'address' => $request->address,
+                'contact' => $request->contact,
             ]);
 
             flashMessage(MessageType::UPDATED->message('Mitra MBKM'));

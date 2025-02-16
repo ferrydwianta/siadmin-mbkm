@@ -15,7 +15,9 @@ class Partner extends Model
         'name',
         'description',
         'logo',
-        'slug'
+        'slug',
+        'address',
+        'contact'
     ];
 
     public function sluggable(): array

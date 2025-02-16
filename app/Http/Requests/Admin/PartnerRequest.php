@@ -33,7 +33,6 @@ class PartnerRequest extends FormRequest
                 'required',
                 'string',
                 'min:0',
-                // 'max:5000'
             ],
             'logo' => Rule::when($this->routeIs('admin.partners.store'), [
                 'required',
@@ -45,15 +44,29 @@ class PartnerRequest extends FormRequest
                 'mimes:png, jpg, jpeg, webp',
                 'max:2048',
             ]),
+            'address' => [
+                'nullable',
+                'string',
+                'min:0',
+                'max:255'
+            ],
+            'contact' => [
+                'nullable',
+                'regex:/^\+?[0-9]+$/', // Must be numbers and can start with +
+                'min:0',
+                'max:15'
+            ],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'name' => 'Nama',
+            'name' => 'Nama Mitra',
             'description' => 'Deskripsi',
             'logo' => 'Logo',
+            'address' => 'Alamat Mitra',
+            'contact' => 'Contact Person'
         ];
     }
 }
