@@ -42,27 +42,27 @@ class Activity extends Model
         });
     }
 
-    // public function scopeSorting(Builder $query, array $sorts): void
-    // {
-    //     $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function($query) use ($sorts) {
-    //         match($sorts['field']) {
-    //             'partner_id' => $query->join('partners', 'activities.partner_id', '=', 'partners.id')
-    //                 ->orderBy('partners.name', $sorts['direction']),
-    //             default => $query->orderBy($sorts['field'], $sorts['direction']),
-    //         };
-    //     });
-    // }
-
     public function scopeSorting(Builder $query, array $sorts): void
     {
-        $query->select('activities.*') // Ensure only activities columns are selected
-            ->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
-            match ($sorts['field']) {
-                'partner_id' => $query
-                    ->join('partners', 'activities.partner_id', '=', 'partners.id')
+        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function($query) use ($sorts) {
+            match($sorts['field']) {
+                'partner_id' => $query->join('partners', 'activities.partner_id', '=', 'partners.id')
                     ->orderBy('partners.name', $sorts['direction']),
-                default => $query ->orderBy("activities.{$sorts['field']}", $sorts['direction']),
+                default => $query->orderBy($sorts['field'], $sorts['direction']),
             };
         });
     }
+
+    // public function scopeSorting(Builder $query, array $sorts): void
+    // {
+    //     $query->select('activities.*') // Ensure only activities columns are selected
+    //         ->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
+    //         match ($sorts['field']) {
+    //             'partner_id' => $query
+    //                 ->join('partners', 'activities.partner_id', '=', 'partners.id')
+    //                 ->orderBy('partners.name', $sorts['direction']),
+    //             default => $query ->orderBy("activities.{$sorts['field']}", $sorts['direction']),
+    //         };
+    //     });
+    // }
 }
