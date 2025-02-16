@@ -28,7 +28,7 @@ export default function SidebarResponsive({ auth, url }) {
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Master</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.academic-years.index')}
                             active={url.startsWith('/admin/academic-years')}
                             title="Tahun Ajaran"
                             icon={IconCalendarTime}
