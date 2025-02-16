@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Activity extends Model
@@ -33,7 +34,17 @@ class Activity extends Model
         return $this->belongsTo(Partner::class);
     }
 
-    public function acitivityRegistrations(): HasMany
+    // Many-to-Many through ActivityRegistration
+    public function students(): BelongsToMany
+    {
+        return $this->belongsToMany(Student::class, 'activity_registrations')
+            ->using(ActivityRegistration::class)
+            ->withPivot(['academic_year_id', 'status', 'notes', 'semester'])
+            ->withTimestamps();
+    }
+
+    // Direct access to pivot model 
+    public function activityRegistrations(): HasMany
     {
         return $this->hasMany(ActivityRegistration::class);
     }

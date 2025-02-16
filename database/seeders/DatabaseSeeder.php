@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
 
         $lecturer->lecturer()->create([
             'lecturer_number' => str()->padLeft(mt_rand(0, 999999), 6, '0'),
-            'full_name' => 'user lecturer',
             'academic_title' => 'lecturer'
         ]);
 
@@ -42,11 +41,9 @@ class DatabaseSeeder extends Seeder
         ]));
 
         $student->student()->create([
-            // 'activity_id' => 1,
             'student_number' => str()->padLeft(mt_rand(0, 999999), 6, '0'),
             'semester' => 1,
             'batch' => 2021,
-            'full_name' => 'user student',
         ]);
 
     }

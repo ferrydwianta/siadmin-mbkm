@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->unsignedInteger('semester')->default(1);
             $table->timestamps();
+            $table->unique(['student_id', 'activity_id']); // Prevent duplicate registrations
         });
     }
 

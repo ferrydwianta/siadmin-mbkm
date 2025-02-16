@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('full_name');
             $table->string('lecturer_number')->unique();
             $table->string('academic_title')->nullable();
             $table->timestamps();
