@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\StudentController;
@@ -54,5 +55,23 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::get('students/edit/{student:student_number}', 'edit')->name('admin.students.edit');
         Route::put('students/edit/{student:student_number}', 'update')->name('admin.students.update');
         Route::delete('students/destroy/{student:student_number}', 'destroy')->name('admin.students.destroy');
+    });
+
+    Route::controller(StudentController::class)->group(function(){
+        Route::get('students', 'index')->name('admin.students.index');
+        Route::get('students/create', 'create')->name('admin.students.create');
+        Route::post('students/create', 'store')->name('admin.students.store');
+        Route::get('students/edit/{student:student_number}', 'edit')->name('admin.students.edit');
+        Route::put('students/edit/{student:student_number}', 'update')->name('admin.students.update');
+        Route::delete('students/destroy/{student:student_number}', 'destroy')->name('admin.students.destroy');
+    });
+
+    Route::controller(LecturerController::class)->group(function(){
+        Route::get('lecturers', 'index')->name('admin.lecturers.index');
+        Route::get('lecturers/create', 'create')->name('admin.lecturers.create');
+        Route::post('lecturers/create', 'store')->name('admin.lecturers.store');
+        Route::get('lecturers/edit/{lecturer:lecturer_number}', 'edit')->name('admin.lecturers.edit');
+        Route::put('lecturers/edit/{lecturer:lecturer_number}', 'update')->name('admin.lecturers.update');
+        Route::delete('lecturers/destroy/{lecturer:lecturer_number}', 'destroy')->name('admin.lecturers.destroy');
     });
 });
