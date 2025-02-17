@@ -7,22 +7,21 @@ import { Label } from '@/Components/ui/label';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCheck, IconUsersGroup } from '@tabler/icons-react';
-import { useRef } from 'react';
+import { IconArrowLeft, IconBooks, IconCheck } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 export default function Edit(props) {
-    const fileInputAvatar = useRef(null);
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: props.lecturer.user.name ?? '',
-        email: props.lecturer.user.email ?? '',
-        password: '',
-        avatar: null,
-        lecturer_number: props.lecturer.lecturer_number ?? '',
-        academic_title: props.lecturer.academic_title ?? '',
+        name: props.course.name ?? '',
+        code: props.course.code ?? '',
+        credit: props.course.credit ?? '',
+        semester: props.course.semester ?? '',
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => setData(e.target.name, e.target.value);
+    const onHandleReset = () => {
+        reset();
+    };
     const onHandleSubmit = (e) => {
         e.preventDefault();
         post(props.page_settings.action, {
@@ -34,10 +33,6 @@ export default function Edit(props) {
             },
         });
     };
-    const onHandleReset = () => {
-        reset();
-        fileInputAvatar.current.value = null;
-    };
 
     return (
         <div className="flex w-full flex-col pb-32">
@@ -45,11 +40,11 @@ export default function Edit(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconUsersGroup}
+                    icon={IconBooks}
                 />
 
                 <Button variant="orange" size="xl" className="w-full lg:w-auto" asChild>
-                    <Link href={route('admin.lecturers.index')}>
+                    <Link href={route('admin.courses.index')}>
                         <IconArrowLeft className="size-4" />
                         Kembali
                     </Link>
@@ -61,80 +56,55 @@ export default function Edit(props) {
                     <form onSubmit={onHandleSubmit}>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
                             <div className="col-span-full">
-                                <Label htmlFor="name">Nama</Label>
+                                <Label htmlFor="name">Nama Mata Kuliah</Label>
                                 <Input
                                     type="text"
                                     name="name"
                                     id="name"
                                     value={data.name}
                                     onChange={onHandleChange}
-                                    placeholder="Masukkan nama dosen"
+                                    placeholder="Masukkan nama mata kuliah"
                                 />
                                 {errors.name && <InputError message={errors.name} />}
                             </div>
 
-                            <div className="col-span-2">
-                                <Label htmlFor="email">Email</Label>
-                                <Input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    value={data.email}
-                                    onChange={onHandleChange}
-                                    placeholder="Masukkan alamat email"
-                                />
-                                {errors.email && <InputError message={errors.email} />}
-                            </div>
-
-                            <div className="col-span-2">
-                                <Label htmlFor="password">Password</Label>
-                                <Input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    value={data.password}
-                                    onChange={onHandleChange}
-                                    placeholder="********"
-                                />
-                                {errors.password && <InputError message={errors.password} />}
-                            </div>
-
-                            <div className="col-span-2">
-                                <Label htmlFor="academic_title">Jabatan Akademik</Label>
-                                <Input
-                                    type="text"
-                                    name="academic_title"
-                                    id="academic_title"
-                                    value={data.academic_title}
-                                    onChange={onHandleChange}
-                                    placeholder="Masukkan jabatan akademik"
-                                />
-                                {errors.academic_title && <InputError message={errors.academic_title} />}
-                            </div>
-
-                            <div className="col-span-2">
-                                <Label htmlFor="avatar">Avatar</Label>
-                                <Input
-                                    type="file"
-                                    name="avatar"
-                                    id="avatar"
-                                    onChange={(e) => setData(e.target.name, e.target.files[0])}
-                                    ref={fileInputAvatar}
-                                />
-                                {errors.avatar && <InputError message={errors.avatar} />}
-                            </div>
-
                             <div className="col-span-full">
-                                <Label htmlFor="lecturer_number">Nomor Induk Dosen</Label>
+                                <Label htmlFor="code">Kode MKA</Label>
                                 <Input
                                     type="text"
-                                    name="lecturer_number"
-                                    id="lecturer_number"
-                                    value={data.lecturer_number}
+                                    name="code"
+                                    id="code"
+                                    value={data.code}
                                     onChange={onHandleChange}
-                                    placeholder="Masukkan nomor induk dosen"
+                                    placeholder="Masukkan kode MKA"
                                 />
-                                {errors.lecturer_number && <InputError message={errors.lecturer_number} />}
+                                {errors.code && <InputError message={errors.code} />}
+                            </div>
+
+                            <div className="col-span-2">
+                                <Label htmlFor="credit">Satuan Kredit Semester (SKS)</Label>
+                                <Input
+                                    type="number"
+                                    name="credit"
+                                    id="credit"
+                                    value={data.credit}
+                                    onChange={onHandleChange}
+                                    placeholder="Masukkan jumlah SKS"
+                                />
+                                {errors.credit && <InputError message={errors.credit} />}
+                            </div>
+
+                            <div className="col-span-2">
+                                <Label htmlFor="semester">Semester</Label>
+                                <Input
+                                    type="number"
+                                    name="semester"
+                                    id="semester"
+                                    value={data.semester}
+                                    onChange={onHandleChange}
+                                    placeholder="Masukkan semester"
+                                />
+                                {errors.semester && <InputError message={errors.semester} />}
                             </div>
                         </div>
 
@@ -155,4 +125,5 @@ export default function Edit(props) {
     );
 }
 
+// Persistant layout
 Edit.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;

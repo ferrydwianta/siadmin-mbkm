@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\ActivityController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\PartnerController;
@@ -73,5 +74,14 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::get('lecturers/edit/{lecturer:lecturer_number}', 'edit')->name('admin.lecturers.edit');
         Route::put('lecturers/edit/{lecturer:lecturer_number}', 'update')->name('admin.lecturers.update');
         Route::delete('lecturers/destroy/{lecturer:lecturer_number}', 'destroy')->name('admin.lecturers.destroy');
+    });
+
+    Route::controller(CourseController::class)->group(function(){
+        Route::get('courses', 'index')->name('admin.courses.index');
+        Route::get('courses/create', 'create')->name('admin.courses.create');
+        Route::post('courses/create', 'store')->name('admin.courses.store');
+        Route::get('courses/edit/{course:code}', 'edit')->name('admin.courses.edit');
+        Route::put('courses/edit/{course:code}', 'update')->name('admin.courses.update');
+        Route::delete('courses/destroy/{course:code}', 'destroy')->name('admin.courses.destroy');
     });
 });

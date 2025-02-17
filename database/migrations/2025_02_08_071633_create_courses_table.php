@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('code')->unique();
             $table->unsignedInteger('credit');
-            $table->unsignedInteger('semester');
+            $table->unsignedInteger('semester')->nullable();
             $table->timestamps();
         });
     }
