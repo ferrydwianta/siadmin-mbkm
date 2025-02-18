@@ -27,11 +27,7 @@ export default function HeaderStudentLayout({ auth, url }) {
                         <div className="px-6 lg:px-24">
                             <div className="relative flex h-16 items-center justify-between">
                                 <div className="flex items-center">
-                                    <ApplicationLogo
-                                        bgLogo="from-orange-500 via-orange-600 to-orange-600"
-                                        colorLogo="text-white"
-                                        colorText="text-white"
-                                    />
+                                    <ApplicationLogo logo="/images/logo-mbkm-white.webp" />
                                 </div>
 
                                 <div className="flex lg:hidden">

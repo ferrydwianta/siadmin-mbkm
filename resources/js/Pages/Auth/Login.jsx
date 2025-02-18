@@ -24,11 +24,7 @@ export default function Login({ status }) {
         <div className="h-screen w-full overflow-hidden lg:grid lg:grid-cols-2">
             {/* Left Section */}
             <div className="flex flex-col px-6 py-4">
-                <ApplicationLogo
-                    bgLogo="from-blue-500 via-blue-600 to-blue-600"
-                    colorLogo="text-white"
-                    colorText="text-white"
-                />
+                <ApplicationLogo logo="/images/logo-mbkm.webp" />
 
                 <div className="flex flex-col items-center justify-center py-12 lg:py-24">
                     <div className="mx-auto flex w-full flex-col gap-6 lg:w-1/2">

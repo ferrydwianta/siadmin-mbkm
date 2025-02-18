@@ -10,6 +10,7 @@ import {
     IconCircleKey,
     IconLayout2,
     IconLogout2,
+    IconNotes,
     IconScript,
     IconUsers,
     IconUsersGroup,
@@ -91,6 +92,12 @@ export default function Sidebar({ auth, url }) {
                             title="Pengajuan Kegiatan"
                             icon={IconScript}
                         />
+                        <NavLink
+                            url="#"
+                            active={url.startsWith('/admin/activity-registrations')}
+                            title="Pendaftaran Kegiatan"
+                            icon={IconNotes}
+                        />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>
                         <NavLink
@@ -127,9 +134,9 @@ export default function Sidebar({ auth, url }) {
 
                         <NavLink
                             url="#"
-                            active={url.startsWith('/lecturers/request-activities')}
-                            title="Pengajuan Kegiatan"
-                            icon={IconScript}
+                            active={url.startsWith('/lecturers/activity-registrations')}
+                            title="Pendaftaran Kegiatan"
+                            icon={IconNotes}
                         />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>
