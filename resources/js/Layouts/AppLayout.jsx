@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Toaster } from '@/Components/ui/sonner';
 import { flashMessage } from '@/lib/utils';
 import { Dialog, Transition } from '@headlessui/react';
@@ -97,7 +97,8 @@ export default function AppLayout({ title, children }) {
                     <div className="flex-1 text-sm font-semibold leading-6 text-foreground">{title}</div>
                     <Link href="#">
                         <Avatar>
-                            <AvatarFallback>X</AvatarFallback>
+                            <AvatarImage src={auth.avatar} />
+                            <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                     </Link>
                 </div>

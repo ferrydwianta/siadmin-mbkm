@@ -42,7 +42,7 @@ export default function SidebarResponsive({ auth, url }) {
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.students.index')}
                             active={url.startsWith('/admin/students')}
                             title="Mahasiswa"
                             icon={IconUsers}
@@ -93,23 +93,30 @@ export default function SidebarResponsive({ auth, url }) {
                 {auth.roles.some((role) => ['Lecturer'].includes(role)) && (
                     <>
                         <NavLink
-                            url="#"
+                            url={route('lecturers.dashboard')}
                             active={url.startsWith('/lecturers/dashboard')}
                             title="Dashboard"
                             icon={IconLayout2}
                         />
 
-                        <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>
-
+                        <div className="px-3 py-2 text-xs font-medium text-white">MBKM</div>
                         <NavLink
                             url="#"
-                            active={url.startsWith('/lecturers/courses')}
-                            title="Mata Kuliah"
-                            icon={IconBooks}
+                            active={url.startsWith('/lecturers/activities')}
+                            title="Kegiatan MKBM"
+                            icon={IconBriefcase}
                         />
 
                         <NavLink
-                            url={route('admin.students.index')}
+                            url="#"
+                            active={url.startsWith('/lecturers/request-activities')}
+                            title="Pengajuan Kegiatan"
+                            icon={IconScript}
+                        />
+
+                        <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>
+                        <NavLink
+                            url={route('lecturers.students.index')}
                             active={url.startsWith('/lecturers/students')}
                             title="Mahasiswa"
                             icon={IconUsers}

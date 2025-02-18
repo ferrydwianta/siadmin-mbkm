@@ -59,15 +59,6 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::delete('students/destroy/{student:student_number}', 'destroy')->name('admin.students.destroy');
     });
 
-    Route::controller(StudentController::class)->group(function(){
-        Route::get('students', 'index')->name('admin.students.index');
-        Route::get('students/create', 'create')->name('admin.students.create');
-        Route::post('students/create', 'store')->name('admin.students.store');
-        Route::get('students/edit/{student:student_number}', 'edit')->name('admin.students.edit');
-        Route::put('students/edit/{student:student_number}', 'update')->name('admin.students.update');
-        Route::delete('students/destroy/{student:student_number}', 'destroy')->name('admin.students.destroy');
-    });
-
     Route::controller(LecturerController::class)->group(function(){
         Route::get('lecturers', 'index')->name('admin.lecturers.index');
         Route::get('lecturers/create', 'create')->name('admin.lecturers.create');
