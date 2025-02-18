@@ -14,6 +14,7 @@ class ActivityRegistration extends Pivot
         'student_id',
         'academic_year_id',
         'activity_id',
+        'schedule_id',
         'status',
         'notes',
         'semester',
@@ -39,6 +40,11 @@ class ActivityRegistration extends Pivot
     public function activity(): BelongsTo
     {
         return $this->belongsTo(Activity::class);
+    }
+
+    public function schedule(): BelongsTo
+    {
+        return $this->belongsTo(Schedule::class);
     }
 
     public function conversions(): HasMany

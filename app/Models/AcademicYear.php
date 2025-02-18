@@ -36,10 +36,10 @@ class AcademicYear extends Model
         ];
     }
 
-    public function activityRegistrations(): HasMany
-    {
-        return $this->hasMany(ActivityRegistration::class);
-    }
+    // public function activityRegistrations(): HasMany
+    // {
+    //     return $this->hasMany(ActivityRegistration::class);
+    // }
 
     public function scopeFilter(Builder $query, array $filters): void
     {

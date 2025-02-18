@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -83,5 +84,14 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::get('courses/edit/{course:code}', 'edit')->name('admin.courses.edit');
         Route::put('courses/edit/{course:code}', 'update')->name('admin.courses.update');
         Route::delete('courses/destroy/{course:code}', 'destroy')->name('admin.courses.destroy');
+    });
+
+    Route::controller(ScheduleController::class)->group(function(){
+        Route::get('schedules', 'index')->name('admin.schedules.index');
+        Route::get('schedules/create', 'create')->name('admin.schedules.create');
+        Route::post('schedules/create', 'store')->name('admin.schedules.store');
+        Route::get('schedules/edit/{schedule}', 'edit')->name('admin.schedules.edit');
+        Route::put('schedules/edit/{schedule}', 'update')->name('admin.schedules.update');
+        Route::delete('schedules/destroy/{schedule}', 'destroy')->name('admin.schedules.destroy');
     });
 });
