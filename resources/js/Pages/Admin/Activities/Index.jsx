@@ -3,6 +3,7 @@ import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import PaginationTable from '@/Components/PaginationTable';
 import ShowFilter from '@/Components/ShowFilter';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -154,7 +155,15 @@ export default function Index(props) {
                                 {activities.map((activity, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                        <TableCell>{activity.partner.name}</TableCell>
+
+                                        <TableCell className="flex items-center gap-2">
+                                            <Avatar>
+                                                <AvatarImage src={activity.partner.logo} />
+                                                <AvatarFallback>{activity.partner.name.substring(0, 1)}</AvatarFallback>
+                                            </Avatar>
+                                            <span>{activity.partner.name}</span>
+                                        </TableCell>
+
                                         <TableCell>{activity.name}</TableCell>
                                         <TableCell className="max-w-[200px] overflow-hidden truncate text-ellipsis whitespace-nowrap">
                                             {activity.description}

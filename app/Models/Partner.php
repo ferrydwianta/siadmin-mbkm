@@ -39,6 +39,8 @@ class Partner extends Model
         $query->when($filters['search'] ?? null, function($query, $search) {
             $query->whereAny([
                 'name',
+                'description',
+                'address',
             ], 'REGEXP', $search);
         });
     }

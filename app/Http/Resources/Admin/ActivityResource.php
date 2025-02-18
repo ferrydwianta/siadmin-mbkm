@@ -4,6 +4,7 @@ namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ActivityResource extends JsonResource
 {
@@ -24,7 +25,7 @@ class ActivityResource extends JsonResource
                 'id' => $this->partner?->id,
                 'name' => $this->partner?->name,
                 'description' => $this->partner?->description,
-                'logo' => $this->partner?->logo,
+                'logo' => $this->partner?->logo ? Storage::url($this->partner?->logo) : null,
             ])
         ];
     }

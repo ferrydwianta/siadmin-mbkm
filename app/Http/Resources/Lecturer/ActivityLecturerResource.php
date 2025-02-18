@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Admin;
+namespace App\Http\Resources\Lecturer;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
-class PartnerResource extends JsonResource
+class ActivityLecturerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,11 +19,14 @@ class PartnerResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'logo' => $this->logo ? Storage::url($this->logo) : null,
             'slug' => $this->slug,
-            'address' => $this->address,
-            'contact' => $this->contact,
             'created_at' => $this->created_at,
+            'partner' => $this->whenLoaded('partner', [
+                'id' => $this->partner?->id,
+                'name' => $this->partner?->name,
+                'description' => $this->partner?->description,
+                'logo' => $this->partner?->logo ? Storage::url($this->partner?->logo) : null,
+            ])
         ];
     }
 }

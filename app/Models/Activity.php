@@ -54,6 +54,7 @@ class Activity extends Model
         $query->when($filters['search'] ?? null, function($query, $search) {
             $query->whereAny([
                 'name',
+                'description'
             ], 'REGEXP', $search)
                 ->orWhereHas('partner', fn($query) => $query->where('name', 'REGEXP', $search));
         });

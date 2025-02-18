@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Lecturer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Lecturers\StudentLecturerResource;
+use App\Http\Resources\Lecturer\StudentLecturerResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Inertia\Response;

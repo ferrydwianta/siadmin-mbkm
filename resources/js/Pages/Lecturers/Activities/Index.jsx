@@ -1,4 +1,3 @@
-import AlertAction from '@/Components/AlertAction';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import PaginationTable from '@/Components/PaginationTable';
@@ -11,20 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import UseFilter from '@/hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { deleteAction, formatDateIndo } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
-import {
-    IconArrowsDownUp,
-    IconBuildingSkyscraper,
-    IconPencil,
-    IconPlus,
-    IconRefresh,
-    IconTrash,
-} from '@tabler/icons-react';
+import { formatDateIndo } from '@/lib/utils';
+import { IconArrowsDownUp, IconBriefcase, IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: partners, meta, links } = props.partners;
+    const { data: activities, meta, links } = props.activities;
     const [params, setParams] = useState(props.state);
     const onSortable = (field) => {
         setParams({
@@ -35,9 +26,9 @@ export default function Index(props) {
     };
 
     UseFilter({
-        route: route('admin.partners.index'),
+        route: route('lecturers.activities.index'),
         values: params,
-        only: ['partners'],
+        only: ['activities'],
     });
 
     return (
@@ -46,15 +37,8 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconBuildingSkyscraper}
+                    icon={IconBriefcase}
                 />
-
-                <Button variant="orange" size="xl" className="w-full lg:w-auto" asChild>
-                    <Link href={route('admin.partners.create')}>
-                        <IconPlus className="size-4" />
-                        Tambah
-                    </Link>
-                </Button>
             </div>
 
             <Card>
@@ -93,11 +77,11 @@ export default function Index(props) {
                 </CardHeader>
 
                 <CardContent className="p-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
-                    {partners.length == 0 ? (
+                    {activities.length == 0 ? (
                         <EmptyState
-                            icon={IconBuildingSkyscraper}
-                            title="Tidak ada Mitra MBKM"
-                            subTitle="Mulailah dengan menambahkan data mitra baru!"
+                            icon={IconBriefcase}
+                            title="Tidak ada Kegiatan MBKM"
+                            subTitle="Mulailah dengan menambahkan data kegiatan baru!"
                         />
                     ) : (
                         <Table className="w-full">
@@ -115,22 +99,33 @@ export default function Index(props) {
                                             </span>
                                         </Button>
                                     </TableHead>
+
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('partner_id')}
+                                        >
+                                            Mitra MBKM
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+
                                     <TableHead>
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
                                             onClick={() => onSortable('name')}
                                         >
-                                            Nama
+                                            Nama Kegiatan
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
                                     <TableHead>Deskripsi</TableHead>
-                                    <TableHead>Logo</TableHead>
-                                    <TableHead>Alamat</TableHead>
-                                    <TableHead>Contact Person</TableHead>
                                     <TableHead>
                                         <Button
                                             variant="ghost"
@@ -143,50 +138,30 @@ export default function Index(props) {
                                             </span>
                                         </Button>
                                     </TableHead>
-                                    <TableHead>Aksi</TableHead>
+                                    {/* <TableHead>Aksi</TableHead> */}
                                 </TableRow>
                             </TableHeader>
 
                             <TableBody>
-                                {partners.map((partner, index) => (
+                                {activities.map((activity, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                        <TableCell>{partner.name}</TableCell>
+
+                                        <TableCell className="flex items-center gap-2">
+                                            <Avatar>
+                                                <AvatarImage src={activity.partner.logo} />
+                                                <AvatarFallback>{activity.partner.name.substring(0, 1)}</AvatarFallback>
+                                            </Avatar>
+                                            <span>{activity.partner.name}</span>
+                                        </TableCell>
+
+                                        <TableCell>{activity.name}</TableCell>
 
                                         <TableCell className="max-w-[200px] overflow-hidden truncate text-ellipsis whitespace-nowrap">
-                                            {partner.description}
+                                            {activity.description}
                                         </TableCell>
 
-                                        <TableCell>
-                                            <Avatar>
-                                                <AvatarImage src={partner.logo} />
-                                                <AvatarFallback>{partner.name.substring(0, 1)}</AvatarFallback>
-                                            </Avatar>
-                                        </TableCell>
-
-                                        <TableCell>{partner.address ? partner.address : '-'}</TableCell>
-                                        <TableCell>{partner.contact ? partner.contact : '-'}</TableCell>
-                                        <TableCell>{formatDateIndo(partner.created_at)}</TableCell>
-                                        <TableCell>
-                                            <div className="flex items-center gap-x-1">
-                                                <Button variant="blue" size="sm" asChild>
-                                                    <Link href={route('admin.partners.edit', [partner])}>
-                                                        <IconPencil className="size-4" />
-                                                    </Link>
-                                                </Button>
-
-                                                <AlertAction
-                                                    trigger={
-                                                        <Button variant="red" size="sm">
-                                                            <IconTrash className="size-4" />
-                                                        </Button>
-                                                    }
-                                                    action={() =>
-                                                        deleteAction(route('admin.partners.destroy', [partner]))
-                                                    }
-                                                />
-                                            </div>
-                                        </TableCell>
+                                        <TableCell>{formatDateIndo(activity.created_at)}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -197,7 +172,7 @@ export default function Index(props) {
                 <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                     <p className="text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} mitra
+                        {meta.total} kegiatan
                     </p>
 
                     <div className="overflow-x-auto">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Lecturers;
+namespace App\Http\Requests\Lecturer;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
