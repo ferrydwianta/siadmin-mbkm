@@ -34,6 +34,12 @@ class Activity extends Model
         return $this->belongsTo(Partner::class);
     }
 
+    // Many-to-many relations with pivot table (course conversions)
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'activity_course')->withTimestamps();
+    }
+
     // Many-to-Many through ActivityRegistration
     public function students(): BelongsToMany
     {

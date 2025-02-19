@@ -37,6 +37,15 @@ class ActivityRequest extends FormRequest
                 'string',
                 'min:0',
             ],
+
+            // rules for courses conversion
+            'courses' => [
+                'nullable', 
+                'array'
+            ],
+            'courses.*' => [
+                'exists:courses,id'
+            ], 
         ];
     }
 
@@ -46,6 +55,7 @@ class ActivityRequest extends FormRequest
             'partner_id' => 'Mitra MBKM',
             'name' => 'Nama Kegiatan',
             'description' => 'Deskripsi',
+            'courses' => 'Konversi Mata kuliah'
         ];
     }
 }

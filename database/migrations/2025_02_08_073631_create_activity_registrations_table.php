@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('schedule_id')->constrained()->cascadeOnDelete();
             $table->string('status')->default(StudentStatus::PENDING->value);
             $table->string('notes')->nullable();
-            $table->unsignedInteger('semester')->default(1);
             $table->timestamps();
             $table->unique(['student_id', 'activity_id']); // Prevent duplicate registrations
         });

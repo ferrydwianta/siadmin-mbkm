@@ -135,6 +135,7 @@ export default function Index(props) {
                                         </Button>
                                     </TableHead>
                                     <TableHead>Deskripsi</TableHead>
+                                    <TableHead>Konversi MKA</TableHead>
                                     <TableHead>
                                         <Button
                                             variant="ghost"
@@ -156,18 +157,40 @@ export default function Index(props) {
                                     <TableRow key={index}>
                                         <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
 
-                                        <TableCell className="flex items-center gap-2">
-                                            <Avatar>
-                                                <AvatarImage src={activity.partner.logo} />
-                                                <AvatarFallback>{activity.partner.name.substring(0, 1)}</AvatarFallback>
-                                            </Avatar>
-                                            <span>{activity.partner.name}</span>
+                                        <TableCell>
+                                            <div className="flex items-center gap-2">
+                                                <Avatar>
+                                                    <AvatarImage src={activity.partner.logo} />
+                                                    <AvatarFallback>
+                                                        {activity.partner.name.substring(0, 1)}
+                                                    </AvatarFallback>
+                                                </Avatar>
+                                                <span>{activity.partner.name}</span>
+                                            </div>
                                         </TableCell>
 
                                         <TableCell>{activity.name}</TableCell>
                                         <TableCell className="max-w-[200px] overflow-hidden truncate text-ellipsis whitespace-nowrap">
                                             {activity.description}
                                         </TableCell>
+
+                                        <TableCell>
+                                            {activity.courses.length > 0 ? (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {activity.courses.map((course) => (
+                                                        <span
+                                                            key={course.id}
+                                                            className="rounded-full bg-blue-600 px-2 py-1 text-xs font-medium text-white"
+                                                        >
+                                                            {course.name}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <span className="italic text-gray-400">Kosong</span>
+                                            )}
+                                        </TableCell>
+
                                         <TableCell>{formatDateIndo(activity.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">

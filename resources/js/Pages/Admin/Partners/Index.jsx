@@ -164,8 +164,20 @@ export default function Index(props) {
                                             </Avatar>
                                         </TableCell>
 
-                                        <TableCell>{partner.address ? partner.address : '-'}</TableCell>
-                                        <TableCell>{partner.contact ? partner.contact : '-'}</TableCell>
+                                        <TableCell>
+                                            {partner.address ? (
+                                                partner.address
+                                            ) : (
+                                                <span className="italic text-gray-400">Kosong</span>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            {partner.contact ? (
+                                                partner.contact
+                                            ) : (
+                                                <span className="italic text-gray-400">Kosong</span>
+                                            )}
+                                        </TableCell>
                                         <TableCell>{formatDateIndo(partner.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">

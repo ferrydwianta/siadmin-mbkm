@@ -47,24 +47,19 @@ export default function HeaderStudentLayout({ auth, url }) {
                                         <div className="hidden lg:mx-10 lg:block">
                                             <div className="flex space-x-4">
                                                 <NavigationMenu
-                                                    url="#"
-                                                    active={url.startsWith('students/dashboard')}
+                                                    url={route('students.dashboard')}
+                                                    active={url.startsWith('/students/dashboard')}
                                                     title="Dashboard"
                                                 />
                                                 <NavigationMenu
                                                     url="#"
-                                                    active={url.startsWith('students/activities')}
+                                                    active={url.startsWith('/students/activities')}
                                                     title="Kegiatan MBKM"
                                                 />
                                                 <NavigationMenu
-                                                    url="#"
-                                                    active={url.startsWith('students/activity-registration')}
+                                                    url={route('students.activity-registrations.index')}
+                                                    active={url.startsWith('/students/activity-registration')}
                                                     title="Kegiatan Aktif"
-                                                />
-                                                <NavigationMenu
-                                                    url="#"
-                                                    active={url.startsWith('students/exam-schedules')}
-                                                    title="Jadwal Ujian"
                                                 />
                                             </div>
                                         </div>
@@ -143,7 +138,7 @@ export default function HeaderStudentLayout({ auth, url }) {
                             <div className="space-y-1 px-2 pb-3 pt-2">
                                 <Disclosure.Button
                                     as="a"
-                                    href="#"
+                                    href={route('students.dashboard')}
                                     className={cn(
                                         url.startsWith('/students/dashboard')
                                             ? 'bg-blue-500 text-white'
@@ -169,7 +164,7 @@ export default function HeaderStudentLayout({ auth, url }) {
 
                                 <Disclosure.Button
                                     as="a"
-                                    href="#"
+                                    href={route('students.activity-registrations.index')}
                                     className={cn(
                                         url.startsWith('/students/activity-registration')
                                             ? 'bg-blue-500 text-white'
@@ -178,19 +173,6 @@ export default function HeaderStudentLayout({ auth, url }) {
                                     )}
                                 >
                                     Kegiatan Aktif
-                                </Disclosure.Button>
-
-                                <Disclosure.Button
-                                    as="a"
-                                    href="#"
-                                    className={cn(
-                                        url.startsWith('/students/exam-schedules')
-                                            ? 'bg-blue-500 text-white'
-                                            : 'text-white hover:bg-blue-500',
-                                        'block rounded-md px-3 py-2 text-base font-medium',
-                                    )}
-                                >
-                                    Jadwal Ujian
                                 </Disclosure.Button>
 
                                 <div className="pb-3 pt-4">

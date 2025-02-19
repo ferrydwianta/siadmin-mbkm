@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
@@ -27,6 +28,12 @@ class Course extends Model
     public function activityConversions(): HasMany
     {
         return $this->hasMany(ActivityConversion::class);
+    }
+
+    // Many-to-many relations with pivot table (course conversions of activities)
+    public function activities(): BelongsToMany
+    {
+        return $this->belongsToMany(Activity::class, 'activity_course')->withTimestamps();
     }
 
     public function scopeFilter(Builder $query, array $filters): void

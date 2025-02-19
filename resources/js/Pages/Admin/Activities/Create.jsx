@@ -1,5 +1,6 @@
 import HeaderTitle from '@/Components/HeaderTitle';
 import InputError from '@/Components/InputError';
+import { MultiSelect } from '@/Components/MultiSelect';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -9,6 +10,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
 import { IconArrowLeft, IconBriefcase, IconCheck } from '@tabler/icons-react';
+import React from 'react';
 import { toast } from 'sonner';
 
 export default function Create(props) {
@@ -16,6 +18,7 @@ export default function Create(props) {
         partner_id: null,
         name: '',
         description: '',
+        courses: [],
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => setData(e.target.name, e.target.value);
@@ -30,7 +33,11 @@ export default function Create(props) {
             },
         });
     };
-    const onHandleReset = () => reset();
+    const multiSelectRef = React.useRef(null);
+    const onHandleReset = () => {
+        reset();
+        multiSelectRef.current?.clear();
+    };
 
     return (
         <div className="flex w-full flex-col pb-32">
@@ -103,6 +110,21 @@ export default function Create(props) {
                                 />
 
                                 {errors.description && <InputError message={errors.description} />}
+                            </div>
+
+                            <div className="col-span-full">
+                                <Label htmlFor="courses">Konversi Mata Kuliah</Label>
+                                <MultiSelect
+                                    ref={multiSelectRef}
+                                    options={props.courses}
+                                    onValueChange={(values) => setData('courses', values)}
+                                    defaultValue={[]}
+                                    placeholder="Pilih matakuliah"
+                                    variant="custom"
+                                    animation={2}
+                                    maxCount={props.courses.length}
+                                />
+                                {errors.courses && <InputError message={errors.courses} />}
                             </div>
                         </div>
 

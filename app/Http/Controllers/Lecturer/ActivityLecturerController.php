@@ -16,7 +16,7 @@ class ActivityLecturerController extends Controller
             ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.slug', 'activities.created_at'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
-            ->with('partner')
+            ->with('partner', 'courses')
             ->paginate(request()->load ?? 10);
         
         return inertia('Lecturers/Activities/Index', [

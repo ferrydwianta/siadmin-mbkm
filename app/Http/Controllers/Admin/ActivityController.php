@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ActivityRequest;
 use App\Http\Resources\Admin\ActivityResource;
 use App\Models\Activity;
+use App\Models\Course;
 use App\Models\Partner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class ActivityController extends Controller
             ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.slug', 'activities.created_at'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
-            ->with('partner')
+            ->with('partner', 'courses')
             ->paginate(request()->load ?? 10);
         
         return inertia('Admin/Activities/Index', [
@@ -58,17 +59,27 @@ class ActivityController extends Controller
                 'value' => $item->id,
                 'label' => $item->name, 
             ]),
+
+            'courses' => Course::query()->select('id', 'name')->orderBy('name')->get()->map(fn($course) => [
+                'value' => $course->id,
+                'label' => $course->name,
+            ]),
         ]);
     }
 
     public function store(ActivityRequest $request): RedirectResponse
     {
         try {
-            Activity::create([
+            $activity = Activity::create([
                 'partner_id' => $request->partner_id,
                 'name' => $request->name,
                 'description' => $request->description,
             ]);
+
+            if ($request->has('courses')) {
+                $activity->courses()->attach($request->courses);
+            }
+
             flashMessage(MessageType::CREATED->message('Kegiatan MBKM'));
             return to_route('admin.activities.index');
         } catch (Throwable $e) {
@@ -86,10 +97,23 @@ class ActivityController extends Controller
                 'method' => 'PUT',
                 'action' => route('admin.activities.update', $activity),
             ],
-            'activity' => $activity,
+
+            'activity' => [
+                'id' => $activity->id,
+                'partner_id' => $activity->partner_id,
+                'name' => $activity->name,
+                'description' => $activity->description,
+                'courses' => $activity->courses->pluck('id')->toArray(), // Send only course IDs
+            ],
+
             'partners' => Partner::query()->select('id', 'name')->orderBy('name')->get()->map(fn($item) => [
                 'value' => $item->id,
                 'label' => $item->name, 
+            ]),
+
+            'courses' => Course::query()->select('id', 'name')->orderBy('name')->get()->map(fn($course) => [
+                'value' => $course->id,
+                'label' => $course->name,
             ]),
         ]);
     }
@@ -102,6 +126,11 @@ class ActivityController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
             ]);
+
+            if ($request->has('courses')) {
+                $activity->courses()->sync($request->courses);
+            }
+
             flashMessage(MessageType::UPDATED->message('Kegiatan MBKM'));
             return to_route('admin.activities.index');
         } catch(Throwable $e) {

@@ -17,7 +17,6 @@ class ActivityRegistration extends Pivot
         'schedule_id',
         'status',
         'notes',
-        'semester',
     ];
 
     protected function casts(): array

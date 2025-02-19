@@ -26,7 +26,11 @@ class ActivityLecturerResource extends JsonResource
                 'name' => $this->partner?->name,
                 'description' => $this->partner?->description,
                 'logo' => $this->partner?->logo ? Storage::url($this->partner?->logo) : null,
-            ])
+            ]),
+            'courses' => $this->whenLoaded('courses', fn() => $this->courses->map(fn($course) => [
+                'id' => $course->id,
+                'name' => $course->name,
+            ])),
         ];
     }
 }
