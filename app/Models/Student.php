@@ -22,14 +22,14 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Many-to-Many through ActivityRegistration
-    public function activities(): BelongsToMany
-    {
-        return $this->belongsToMany(Activity::class, 'activity_registrations')
-            ->using(ActivityRegistration::class)
-            ->withPivot(['academic_year_id', 'status', 'notes', 'semester'])
-            ->withTimestamps();
-    }
+    // // Many-to-Many through ActivityRegistration
+    // public function activities(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Activity::class, 'activity_registrations')
+    //         ->using(ActivityRegistration::class)
+    //         ->withPivot(['academic_year_id', 'status', 'notes', 'semester'])
+    //         ->withTimestamps();
+    // }
 
     // Direct access to pivot model 
     public function activityRegistrations(): HasMany

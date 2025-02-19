@@ -52,7 +52,7 @@ export default function HeaderStudentLayout({ auth, url }) {
                                                     title="Dashboard"
                                                 />
                                                 <NavigationMenu
-                                                    url="#"
+                                                    url={route('students.activities.index')}
                                                     active={url.startsWith('/students/activities')}
                                                     title="Kegiatan MBKM"
                                                 />
@@ -151,7 +151,7 @@ export default function HeaderStudentLayout({ auth, url }) {
 
                                 <Disclosure.Button
                                     as="a"
-                                    href="#"
+                                    href={route('students.activities.index')}
                                     className={cn(
                                         url.startsWith('/students/activities')
                                             ? 'bg-blue-500 text-white'

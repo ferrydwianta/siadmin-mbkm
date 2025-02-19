@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Lecturer;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\ActivityResource;
 use App\Http\Resources\Lecturer\ActivityLecturerResource;
+use App\Http\Resources\Student\ActivityStudentResource;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
-class ActivityLecturerController extends Controller
+class ActivityStudentController extends Controller
 {
     public function index(): Response
     {
@@ -18,15 +18,15 @@ class ActivityLecturerController extends Controller
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with('partner', 'courses')
-            ->paginate(request()->load ?? 10);
+            ->paginate(request()->load ?? 9);
         
-        return inertia('Lecturers/Activities/Index', [
+        return inertia('Students/Activities/Index', [
             'page_settings' => [
                 'title' => 'Kegiatan MBKM',
                 'subtitle' => 'Menampilkan semua kegiatan MBKM yang tersedia'
             ],
 
-            'activities' => ActivityResource::collection($activities)->additional([
+            'activities' => ActivityStudentResource::collection($activities)->additional([
                 'meta' => [
                     'has_pages' => $activities->hasPages(),
                 ],
@@ -35,8 +35,19 @@ class ActivityLecturerController extends Controller
             'state' => [
                 'page' => request()->page ?? 1,
                 'search' => request()->search ?? '',
-                'load' => 10,
+                'load' => 9,
             ],
+        ]);
+    }
+
+    public function show(Activity $activity): Response
+    {
+        return inertia('Students/Activities/Show', [
+            'page_settings' => [
+                'title' => 'Detail Kegiatan MBKM',
+                'subtitle' => 'Informasi Lengkap Kegiatan MBKM',
+            ],
+            'activity' => new ActivityStudentResource($activity->load('partner', 'courses'))
         ]);
     }
 }

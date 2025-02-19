@@ -126,7 +126,7 @@ export default function Index(props) {
                                         </Button>
                                     </TableHead>
                                     <TableHead>Deskripsi</TableHead>
-                                    <TableHead>Konversi MKA</TableHead>
+                                    <TableHead className="min-w-[300px]">Konversi MKA</TableHead>
                                     <TableHead>
                                         <Button
                                             variant="ghost"
@@ -166,7 +166,7 @@ export default function Index(props) {
                                             {activity.description}
                                         </TableCell>
 
-                                        <TableCell>
+                                        <TableCell className="min-w-[300px]">
                                             {activity.courses.length > 0 ? (
                                                 <div className="flex flex-wrap gap-2">
                                                     {activity.courses.map((course) => (

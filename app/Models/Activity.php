@@ -40,14 +40,14 @@ class Activity extends Model
         return $this->belongsToMany(Course::class, 'activity_course')->withTimestamps();
     }
 
-    // Many-to-Many through ActivityRegistration
-    public function students(): BelongsToMany
-    {
-        return $this->belongsToMany(Student::class, 'activity_registrations')
-            ->using(ActivityRegistration::class)
-            ->withPivot(['academic_year_id', 'status', 'notes', 'semester'])
-            ->withTimestamps();
-    }
+    // // Many-to-Many through ActivityRegistration
+    // public function students(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Student::class, 'activity_registrations')
+    //         ->using(ActivityRegistration::class)
+    //         ->withPivot(['academic_year_id', 'status', 'notes', 'semester'])
+    //         ->withTimestamps();
+    // }
 
     // Direct access to pivot model 
     public function activityRegistrations(): HasMany

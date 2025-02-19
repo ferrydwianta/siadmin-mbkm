@@ -7,7 +7,7 @@ export default function NavigationMenu({ active = false, url = '#', title, ...pr
             {...props}
             href={url}
             className={cn(
-                active ? 'text-white-500 bg-blue-500' : 'text-white hover:bg-blue-500',
+                active ? 'bg-blue-500 text-white' : 'text-white hover:bg-blue-500',
                 'rounded-md px-3 py-2 text-base font-medium',
             )}
         >
