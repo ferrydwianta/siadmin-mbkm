@@ -32,6 +32,7 @@ class ActivityStudentResource extends JsonResource
             'courses' => $this->whenLoaded('courses', fn() => $this->courses->map(fn($course) => [
                 'id' => $course->id,
                 'name' => $course->name,
+                'credit' => $course->credit
             ])),
         ];
     }

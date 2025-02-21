@@ -27,10 +27,6 @@ class UserSingleResource extends JsonResource
                 'student_number' => $this->student?->student_number,
                 'batch' => $this->student?->batch,
                 'semester' => $this->student?->semester,
-                'activity' => [
-                    'id' => $this->student?->activity?->id,
-                    'name' => $this->student?->activity?->name,
-                ],
             ]),
             'lecturer' => $this->when($this->hasRole('Lecturer'), [
                 'id' => $this->lecturer?->id,

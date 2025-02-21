@@ -17,7 +17,7 @@ export default function AppLayout({ title, children }) {
     const flash = flashMessage(usePage());
 
     useEffect(() => {
-        if (flash && flash.message && flash.type == 'warning') toast[flash.type](flash.message);
+        if (flash && flash.message && flash.type === 'warning') toast[flash.type](flash.message);
     }, [flash]);
 
     return (

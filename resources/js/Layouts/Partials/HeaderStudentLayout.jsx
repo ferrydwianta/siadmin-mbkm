@@ -59,7 +59,7 @@ export default function HeaderStudentLayout({ auth, url }) {
                                                 <NavigationMenu
                                                     url={route('students.activity-registrations.index')}
                                                     active={url.startsWith('/students/activity-registration')}
-                                                    title="Kegiatan Aktif"
+                                                    title="KegiatanKu"
                                                 />
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@ export default function HeaderStudentLayout({ auth, url }) {
                                         'block rounded-md px-3 py-2 text-base font-medium',
                                     )}
                                 >
-                                    Kegiatan Aktif
+                                    KegiatanKu
                                 </Disclosure.Button>
 
                                 <div className="pb-3 pt-4">

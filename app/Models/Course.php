@@ -25,9 +25,9 @@ class Course extends Model
         );
     }
 
-    public function activityConversions(): HasMany
+    public function conversions(): HasMany
     {
-        return $this->hasMany(ActivityConversion::class);
+        return $this->hasMany(Conversion::class);
     }
 
     // Many-to-many relations with pivot table (course conversions of activities)

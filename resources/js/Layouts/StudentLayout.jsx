@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/Components/ui/card';
-import { Toaster } from '@/Components/ui/toaster';
-import { flashMessage } from '@/lib/utils';
+
+import { Toaster } from '@/Components/ui/sonner';
 import { Head, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
@@ -9,11 +9,14 @@ import HeaderStudentLayout from './Partials/HeaderStudentLayout';
 export default function StudentLayout({ children, title }) {
     const { url } = usePage();
     const auth = usePage().props.auth.user;
-    const flash = flashMessage(usePage());
+
+    const { flash_message } = usePage().props;
 
     useEffect(() => {
-        if (flash && flash.message && flash.type == 'warning') toast[flash.type](flash.message);
-    }, [flash]);
+        if (flash_message && flash_message.message && flash_message.type) {
+            toast[flash_message.type](flash_message.message);
+        }
+    }, [flash_message]);
 
     return (
         <>

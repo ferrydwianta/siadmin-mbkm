@@ -30,7 +30,7 @@ class PartnerRequest extends FormRequest
                 'max:255'
             ],
             'description' => [
-                'required',
+                'nullable',
                 'string',
                 'min:0',
             ],

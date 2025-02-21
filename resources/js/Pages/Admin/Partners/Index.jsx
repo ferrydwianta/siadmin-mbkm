@@ -154,7 +154,11 @@ export default function Index(props) {
                                         <TableCell>{partner.name}</TableCell>
 
                                         <TableCell className="max-w-[200px] overflow-hidden truncate text-ellipsis whitespace-nowrap">
-                                            {partner.description}
+                                            {partner.description ? (
+                                                partner.description
+                                            ) : (
+                                                <span className="italic text-gray-400">Kosong</span>
+                                            )}
                                         </TableCell>
 
                                         <TableCell>

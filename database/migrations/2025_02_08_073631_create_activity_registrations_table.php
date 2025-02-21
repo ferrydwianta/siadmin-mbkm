@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->foreignId('activity_id')->constrained()->cascadeOnDelete();
             $table->foreignId('academic_year_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('schedule_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('schedule_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('status')->default(StudentStatus::PENDING->value);
             $table->string('notes')->nullable();
             $table->timestamps();

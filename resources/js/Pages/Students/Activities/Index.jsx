@@ -87,7 +87,7 @@ export default function Index(props) {
                                 <span className="absolute inset-0 z-40"></span>
                             </a>
                             {/* Partner Info */}
-                            <CardHeader className="flex flex-row items-center gap-4 border-b pb-4">
+                            <CardHeader className="flex flex-row items-center gap-4 border-b pb-6">
                                 <Thumbnail className="h-14 w-14">
                                     <ThumbnailImage src={activity.partner.logo} />
                                     <ThumbnailFallback>{activity.partner.name.substring(0, 1)}</ThumbnailFallback>

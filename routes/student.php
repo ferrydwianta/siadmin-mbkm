@@ -10,8 +10,8 @@ Route::prefix('students')->middleware(['auth', 'role:Student'])->group(function(
 
     Route::controller(ActivityRegistrationStudentController::class)->group(function(){
         Route::get('activity-registrations', 'index')->name('students.activity-registrations.index');
-        Route::get('activity-registrations/create', 'create')->name('students.activity-registrations.create');
-        Route::post('activity-registrations/create', 'store')->name('students.activity-registrations.store');
+        Route::get('activity-registrations/create/{activity:slug}', 'create')->name('students.activity-registrations.create');
+        Route::post('activity-registrations/create/{activity:slug}', 'store')->name('students.activity-registrations.store');
         Route::get('activity-registrations/detail/{activityRegistration}', 'show')->name('students.activity-registrations.show');
     });
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ActivityConversion extends Model
+class Conversion extends Model
 {
     protected $fillable = [
         'activity_registration_id',
