@@ -6,7 +6,7 @@ import { Checkbox } from '@/Components/ui/checkbox';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -84,6 +84,13 @@ export default function Login({ status }) {
                             <Button type="submit" variant="blue" size="xl" className="w-full" disabled={processing}>
                                 Masuk
                             </Button>
+
+                            <Link
+                                href={route('register')}
+                                className="w-full text-center text-sm font-medium text-black hover:text-black/70 focus:outline-none dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                            >
+                                Buat Akun? <span className="text-blue-600">Register</span>
+                            </Link>
                         </form>
                     </div>
                 </div>

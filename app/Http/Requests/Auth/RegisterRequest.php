@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StudentRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->user()->hasRole('Admin');
+        return true;
     }
 
     /**
@@ -36,16 +36,9 @@ class StudentRequest extends FormRequest
                 Rule::unique('users')->ignore($this->student?->user),
             ],
             'password' => [
-                Rule::when($this->routeIs('admin.students.store'), [
-                    'required',
-                    'min:8',
-                    'max:255'
-                ]),
-                Rule::when($this->routeIs('admin.students.update'), [
-                    'nullable',
-                    'min:8',
-                    'max:255'
-                ]),
+                'required',
+                'min:8',
+                'max:255'
             ],
             'student_number' => [
                 'required',
