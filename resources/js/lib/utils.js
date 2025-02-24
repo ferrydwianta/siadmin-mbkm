@@ -39,11 +39,11 @@ export const formatDateIndo = (dateString) => {
 export const STUDENTSTATUS = {
     PENDING: 'Pending',
     REJECT: 'Reject',
-    APPROVED: 'Approved',
+    APPROVED: 'Approve',
 };
 
 export const STUDENTSTATUSVARIANT = {
     [STUDENTSTATUS.PENDING]: 'secondary',
     [STUDENTSTATUS.REJECT]: 'destructive',
-    [STUDENTSTATUS.APPROVED]: 'success',
+    [STUDENTSTATUS.APPROVED]: 'default',
 };

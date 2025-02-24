@@ -1,5 +1,4 @@
 import AlertAction from '@/Components/AlertAction';
-import { DetailLayout } from '@/Components/DetailLayout';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import PaginationTable from '@/Components/PaginationTable';
@@ -14,10 +13,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import UseFilter from '@/hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo, STUDENTSTATUSVARIANT } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
-import { IconArrowsDownUp, IconNote, IconNotes, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconNotes, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 import Approve from './Approve';
+import { Detail } from './Detail';
 
 export default function Index(props) {
     const { data: activityRegistrations, meta, links } = props.activityRegistrations;
@@ -207,7 +206,9 @@ export default function Index(props) {
                                             </div>
                                         </TableCell>
 
-                                        <TableCell>{registration.student.user.name} ({registration.student.student_number})</TableCell>
+                                        <TableCell>
+                                            {registration.student.user.name} ({registration.student.student_number})
+                                        </TableCell>
 
                                         <TableCell>
                                             <Badge variant={STUDENTSTATUSVARIANT[registration.status]}>
@@ -217,7 +218,11 @@ export default function Index(props) {
 
                                         <TableCell>
                                             {registration.schedule ? (
-                                                <span className="text-sm">{formatDateIndo(registration.schedule.date)}, {registration.schedule.start_time} - {registration.schedule.end_time}</span>
+                                                <span className="text-sm">
+                                                    {formatDateIndo(registration.schedule.date)},{' '}
+                                                    {registration.schedule.start_time} -{' '}
+                                                    {registration.schedule.end_time}
+                                                </span>
                                             ) : (
                                                 <span className="italic text-gray-400">Belum ada jadwal</span>
                                             )}
@@ -226,12 +231,19 @@ export default function Index(props) {
                                         <TableCell>{formatDateIndo(registration.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
-                                                <DetailLayout activityRegistration={registration}/>
-                                                
+                                                <Detail
+                                                    activityRegistration={registration}
+                                                    action={route('admin.activity-registrations.grades', [
+                                                        registration,
+                                                    ])}
+                                                />
+
                                                 <Approve
                                                     name={registration.student.user.name}
                                                     statuses={props.statuses}
-                                                    action={route('admin.activity-registrations.approve', [registration])}
+                                                    action={route('admin.activity-registrations.approve', [
+                                                        registration,
+                                                    ])}
                                                 />
 
                                                 <AlertAction
@@ -241,7 +253,11 @@ export default function Index(props) {
                                                         </Button>
                                                     }
                                                     action={() =>
-                                                        deleteAction(route('admin.activity-registrations.destroy', [registration]))
+                                                        deleteAction(
+                                                            route('admin.activity-registrations.destroy', [
+                                                                registration,
+                                                            ]),
+                                                        )
                                                     }
                                                 />
                                             </div>

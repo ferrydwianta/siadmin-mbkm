@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('status')->default(StudentStatus::PENDING->value);
             $table->string('notes')->nullable();
             $table->timestamps();
-            $table->unique(['student_id', 'activity_id']); // Prevent duplicate registrations
         });
     }
 

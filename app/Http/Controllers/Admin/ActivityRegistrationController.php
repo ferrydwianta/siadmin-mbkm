@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\MessageType;
 use App\Enums\StudentStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ActivityRegistrationGradesRequest;
 use App\Http\Requests\Admin\ActivityRegistrationRequest;
 use App\Http\Resources\Admin\ActivityRegistrationResource;
 use App\Http\Resources\Student\ActivityRegistrationStudentResource;
@@ -28,7 +29,7 @@ class ActivityRegistrationController extends Controller
             ->with(['academicYear', 'activity', 'schedule', 'conversions', 'conversions.course', 'student', 'student.user'])
             ->latest('created_at')
             ->paginate(request()->load ?? 10);
-            
+
         return inertia('Admin/ActivityRegistrations/Index', [
             'page_settings' => [
                 'title' => 'Pendaftaran Kegiatan MBKM',
@@ -71,16 +72,38 @@ class ActivityRegistrationController extends Controller
             ]);
 
             // if($activityRegistration->status->value === StudentStatus::APPROVED->value) {
-                // do add or update or other task to other table maybe if the status is approved
+            // do add or update or other task to other table maybe if the status is approved
             // }
 
             DB::commit();
 
-            match($activityRegistration->status->value) {
+            match ($activityRegistration->status->value) {
                 StudentStatus::REJECT->value => flashMessage('Pendaftaran Kegiatan Mahasiswa berhasil ditolak', 'error'),
                 StudentStatus::APPROVED->value => flashMessage('Pendaftaran Kegiatan Mahasiswa berhasil diterima'),
                 default => null
             };
+            return to_route('admin.activity-registrations.index');
+        } catch (Throwable $e) {
+            DB::rollBack();
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            return to_route('admin.activity-registrations.index');
+        }
+    }
+
+    public function grades(ActivityRegistration $activityRegistration, ActivityRegistrationGradesRequest $request): RedirectResponse
+    {   
+        try {
+            DB::beginTransaction();
+
+            foreach ($request->conversions as $conversionData) {
+                $activityRegistration->conversions()
+                    ->where('id', $conversionData['id'])
+                    ->update(['grade' => $conversionData['grade']]);
+            }
+            
+            DB::commit();
+
+            flashMessage('Berhasil menambahkan nilai konversi');
             return to_route('admin.activity-registrations.index');
         } catch (Throwable $e) {
             DB::rollBack();

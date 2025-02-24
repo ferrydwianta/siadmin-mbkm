@@ -81,7 +81,8 @@ class ActivityRegistration extends Model
                     $query->whereAny(['name'], 'REGEXP', $search)
                         ->orWhereHas('partner', fn($query) => $query->whereAny(['name'], 'REGEXP', $search));
                 })
-                ->orWhereHas('schedule', fn($query) => $query->whereAny(['start_time'], 'REGEXP', $search));
+                ->orWhereHas('schedule', fn($query) => $query->whereAny(['start_time'], 'REGEXP', $search))
+                ->orWhereHas('academicYear', fn($query) => $query->whereAny(['name', 'semester'], 'REGEXP', $search));
         });
     }
 
@@ -98,6 +99,9 @@ class ActivityRegistration extends Model
     
                 'schedule_id' => $query->join('schedules', 'activity_registrations.schedule_id', '=', 'schedules.id')
                     ->orderBy('schedules.start_time', $sorts['direction']),
+
+                'academic_year_id' => $query->join('academic_years', 'activity_registrations.academic_year_id', '=', 'academic_years.id')
+                    ->orderBy('academic_years.id', $sorts['direction']),
     
                 default => $query->orderBy($sorts['field'], $sorts['direction']),
             };

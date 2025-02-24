@@ -82,7 +82,7 @@ export default function Show(props) {
                                         {conversion.grade ? (
                                             <span className="font-medium text-green-600">{conversion.grade}</span>
                                         ) : (
-                                            <span className="italic text-gray-400">Kosong</span>
+                                            <span className="italic text-gray-400">Belum ada</span>
                                         )}
                                     </TableCell>
                                 </TableRow>

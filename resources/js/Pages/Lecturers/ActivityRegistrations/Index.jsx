@@ -1,5 +1,3 @@
-import AlertAction from '@/Components/AlertAction';
-import { DetailLayout } from '@/Components/DetailLayout';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import PaginationTable from '@/Components/PaginationTable';
@@ -13,10 +11,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import UseFilter from '@/hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { deleteAction, formatDateIndo, STUDENTSTATUSVARIANT } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
-import { IconArrowsDownUp, IconNote, IconNotes, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { formatDateIndo, STUDENTSTATUSVARIANT } from '@/lib/utils';
+import { IconArrowsDownUp, IconNotes, IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
+import { Detail } from './Detail';
 
 export default function Index(props) {
     const { data: activityRegistrations, meta, links } = props.activityRegistrations;
@@ -206,7 +204,9 @@ export default function Index(props) {
                                             </div>
                                         </TableCell>
 
-                                        <TableCell>{registration.student.user.name} ({registration.student.student_number})</TableCell>
+                                        <TableCell>
+                                            {registration.student.user.name} ({registration.student.student_number})
+                                        </TableCell>
 
                                         <TableCell>
                                             <Badge variant={STUDENTSTATUSVARIANT[registration.status]}>
@@ -216,7 +216,11 @@ export default function Index(props) {
 
                                         <TableCell>
                                             {registration.schedule ? (
-                                                <span className="text-sm">{formatDateIndo(registration.schedule.date)}, {registration.schedule.start_time} - {registration.schedule.end_time}</span>
+                                                <span className="text-sm">
+                                                    {formatDateIndo(registration.schedule.date)},{' '}
+                                                    {registration.schedule.start_time} -{' '}
+                                                    {registration.schedule.end_time}
+                                                </span>
                                             ) : (
                                                 <span className="italic text-gray-400">Belum ada jadwal</span>
                                             )}
@@ -225,7 +229,7 @@ export default function Index(props) {
                                         <TableCell>{formatDateIndo(registration.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
-                                                <DetailLayout activityRegistration={registration}/>
+                                                <Detail activityRegistration={registration} />
                                             </div>
                                         </TableCell>
                                     </TableRow>

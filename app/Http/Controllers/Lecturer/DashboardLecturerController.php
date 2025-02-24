@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Partner;
 
 class DashboardLecturerController extends Controller
 {
@@ -16,13 +17,14 @@ class DashboardLecturerController extends Controller
         return inertia('Lecturers/Dashboard', [
             'page_settings' => [
                 'title' => 'Dashboard',
-                'subtitle' => 'Menampilkan semua statistik pada platform ini',
+                'subtitle' => 'Selamat datang di Sistem Informasi Administrasi MBKM',
             ],
             'count' => [
-                'courses' => Course::count(),
                 'activities' => Activity::count(),
                 'students' => Student::count(),
+                'partners' => Partner::count(),
             ],
+            'academicYear' => activeAcademicYear()
         ]);
     }
 }

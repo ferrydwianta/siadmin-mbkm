@@ -6,22 +6,26 @@ import { Button } from '@/Components/ui/button';
 import { Checkbox } from '@/Components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import StudentLayout from '@/Layouts/StudentLayout';
+import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
 import { IconArrowLeft, IconBriefcase, IconCheck, IconNotes } from '@tabler/icons-react';
+import { toast } from 'sonner';
 
 export default function Create(props) {
     const { data, setData, post, reset, errors, processing } = useForm({
         conversions: [],
         _method: props.page_settings._method,
     });
-    console.log(data.conversions);
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
-            onSuccess: (success) => {},
+            onSuccess: (success) => {
+                const flash = flashMessage(success);
+                if (flash) toast[flash.type](flash.message);
+            },
         });
     };
 
