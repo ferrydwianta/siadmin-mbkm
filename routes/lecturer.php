@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Lecturer\ActivityLecturerController;
+use App\Http\Controllers\Lecturer\ActivityRegistrationLecturerController;
 use App\Http\Controllers\Lecturer\DashboardLecturerController;
 use App\Http\Controllers\Lecturer\StudentLecturerController;
 use Illuminate\Routing\Router;
@@ -20,5 +21,9 @@ Route::prefix('lecturers')->middleware(['auth', 'role:Lecturer'])->group(functio
 
     Route::controller(ActivityLecturerController::class)->group(function(){
         Route::get('activities', 'index')->name('lecturers.activities.index');
+    });
+
+    Route::controller(ActivityRegistrationLecturerController::class)->group(function(){
+        Route::get('activity-registrations', 'index')->name('lecturers.activity-registrations.index');
     });
 });

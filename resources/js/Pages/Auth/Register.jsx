@@ -22,7 +22,8 @@ export default function Register(props) {
     const submit = (e) => {
         e.preventDefault();
         post(route('register'), {
-            onFinish: () => reset('password'),
+            reserveScroll: true,
+            preserveState: true,
         });
     };
     const onHandleChange = (e) => setData(e.target.name, e.target.value);
@@ -38,7 +39,7 @@ export default function Register(props) {
                     <ApplicationLogo logo="/images/logo-mbkm.webp" />
 
                     <div className="flex flex-col items-center justify-center py-12 lg:py-16">
-                        <div className="mx-auto flex w-full flex-col gap-6 lg:w-1/2">
+                        <div className="mx-auto flex w-full flex-col gap-6 lg:w-9/12">
                             {/* Login Heading */}
                             <div className="grid gap-2 text-center">
                                 <h1 className="text-3xl font-bold text-foreground">Register</h1>
@@ -48,8 +49,8 @@ export default function Register(props) {
                             </div>
 
                             {/* Register Form */}
-                            <form onSubmit={submit} className="grid gap-4">
-                                <div>
+                            <form onSubmit={submit} className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+                                <div className="col-span-full">
                                     <InputLabel htmlFor="name" value="Nama" />
                                     <TextInput
                                         id="name"
@@ -63,7 +64,7 @@ export default function Register(props) {
                                     <InputError message={errors.name} className="mt-2" />
                                 </div>
 
-                                <div className="mt-4">
+                                <div className="col-span-2 mt-4">
                                     <InputLabel htmlFor="email" value="Email" />
                                     <TextInput
                                         id="email"
@@ -78,7 +79,7 @@ export default function Register(props) {
                                     <InputError message={errors.email} className="mt-2" />
                                 </div>
 
-                                <div className="mt-4">
+                                <div className="col-span-2 mt-4">
                                     <InputLabel htmlFor="password" value="Password" />
                                     <TextInput
                                         id="password"
@@ -93,7 +94,7 @@ export default function Register(props) {
                                     <InputError message={errors.password} className="mt-2" />
                                 </div>
 
-                                <div>
+                                <div className="col-span-2 mt-4">
                                     <InputLabel htmlFor="student_number" value="Nomor Induk Mahasiswa (NIM)" />
                                     <TextInput
                                         id="student_number"
@@ -106,7 +107,7 @@ export default function Register(props) {
                                     <InputError message={errors.student_number} className="mt-2" />
                                 </div>
 
-                                <div>
+                                <div className="col-span-2 mt-4">
                                     <InputLabel htmlFor="semester" value="Semester" />
                                     <TextInput
                                         type="number"
@@ -120,7 +121,7 @@ export default function Register(props) {
                                     <InputError message={errors.semester} className="mt-2" />
                                 </div>
 
-                                <div>
+                                <div className="col-span-2 mt-4">
                                     <InputLabel htmlFor="batch" value="Angkatan" />
                                     <TextInput
                                         type="number"
@@ -134,7 +135,7 @@ export default function Register(props) {
                                     <InputError message={errors.batch} className="mt-2" />
                                 </div>
 
-                                <div>
+                                <div className="col-span-2 mt-4">
                                     <InputLabel htmlFor="avatar" value="Photo Profile" />
                                     <TextInput
                                         type="file"
@@ -148,22 +149,24 @@ export default function Register(props) {
                                 </div>
 
                                 {/* Submit Button */}
-                                <Button
-                                    type="submit"
-                                    variant="blue"
-                                    size="xl"
-                                    className="mt-4 w-full"
-                                    disabled={processing}
-                                >
-                                    Daftar
-                                </Button>
+                                <div className="col-span-full flex flex-col items-center gap-4">
+                                    <Button
+                                        type="submit"
+                                        variant="blue"
+                                        size="xl"
+                                        className="mt-4 w-full"
+                                        disabled={processing}
+                                    >
+                                        Daftar
+                                    </Button>
 
-                                <Link
-                                    href={route('login')}
-                                    className="w-full text-center text-sm font-medium text-black hover:text-black/70 focus:outline-none dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                >
-                                    Sudah punya akun? <span className="text-blue-600">Masuk</span>
-                                </Link>
+                                    <Link
+                                        href={route('login')}
+                                        className="w-full text-center text-sm font-medium text-black hover:text-black/70 focus:outline-none dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                    >
+                                        Sudah punya akun? <span className="text-blue-600">Masuk</span>
+                                    </Link>
+                                </div>
                             </form>
                         </div>
                     </div>

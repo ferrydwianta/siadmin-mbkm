@@ -52,22 +52,53 @@ class ActivityRegistration extends Model
         return $this->hasMany(Conversion::class);
     }
 
+    public function scopeApprove(Builder $query)
+    {
+        $query->where('status', StudentStatus::APPROVED->value);
+    }
+
+    public function scopePending(Builder $query)
+    {
+        $query->where('status', StudentStatus::PENDING->value);
+    }
+
+    public function scopeReject(Builder $query)
+    {
+        $query->where('status', StudentStatus::REJECT->value);
+    }
+
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, function($query, $search) {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
                 'status',
             ], 'REGEXP', $search)
-                ->orWhereHas('activity', fn($query) => $query->where('name', 'REGEXP', $search));
+                ->orWhereHas('student', function ($query) use ($search) {
+                    $query->whereAny(['student_number'], 'REGEXP', $search)
+                        ->orWhereHas('user', fn($query) => $query->whereAny(['name'], 'REGEXP', $search));
+                })
+                ->orWhereHas('activity', function ($query) use ($search) {
+                    $query->whereAny(['name'], 'REGEXP', $search)
+                        ->orWhereHas('partner', fn($query) => $query->whereAny(['name'], 'REGEXP', $search));
+                })
+                ->orWhereHas('schedule', fn($query) => $query->whereAny(['start_time'], 'REGEXP', $search));
         });
     }
 
     public function scopeSorting(Builder $query, array $sorts): void
     {
-        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function($query) use ($sorts) {
-            match($sorts['field']) {
+        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
+            match ($sorts['field']) {
                 'activity_id' => $query->join('activities', 'activity_registrations.activity_id', '=', 'activities.id')
                     ->orderBy('activities.name', $sorts['direction']),
+    
+                'student_id' => $query->join('students', 'activity_registrations.student_id', '=', 'students.id')
+                    ->join('users', 'students.user_id', '=', 'users.id')
+                    ->orderBy('users.name', $sorts['direction']),
+    
+                'schedule_id' => $query->join('schedules', 'activity_registrations.schedule_id', '=', 'schedules.id')
+                    ->orderBy('schedules.start_time', $sorts['direction']),
+    
                 default => $query->orderBy($sorts['field'], $sorts['direction']),
             };
         });

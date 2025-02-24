@@ -75,7 +75,7 @@ export default function SidebarResponsive({ auth, url }) {
                             icon={IconScript}
                         />
                         <NavLink
-                            url="#"
+                            url={route('admin.activity-registrations.index')}
                             active={url.startsWith('/admin/activity-registrations')}
                             title="Pendaftaran Kegiatan"
                             icon={IconNotes}
@@ -90,7 +90,7 @@ export default function SidebarResponsive({ auth, url }) {
                         />
                         <NavLink
                             url={route('admin.schedules.index')}
-                            active={url.startsWith('/admin/exam-schedules')}
+                            active={url.startsWith('/admin/schedules')}
                             title="Jadwal Ujian"
                             icon={IconCalendar}
                         />
@@ -115,7 +115,7 @@ export default function SidebarResponsive({ auth, url }) {
                         />
 
                         <NavLink
-                            url="#"
+                            url={route('lecturers.activity-registrations.index')}
                             active={url.startsWith('/lecturers/activity-registrations')}
                             title="Pendaftaran Kegiatan"
                             icon={IconNotes}

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\ActivityController;
+use App\Http\Controllers\Admin\ActivityRegistrationController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\LecturerController;
@@ -84,5 +85,11 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::get('schedules/edit/{schedule}', 'edit')->name('admin.schedules.edit');
         Route::put('schedules/edit/{schedule}', 'update')->name('admin.schedules.update');
         Route::delete('schedules/destroy/{schedule}', 'destroy')->name('admin.schedules.destroy');
+    });
+
+    Route::controller(ActivityRegistrationController::class)->group(function(){
+        Route::get('activity-registrations', 'index')->name('admin.activity-registrations.index');
+        Route::delete('activity-registrations/destroy/{activityRegistration}', 'destroy')->name('admin.activity-registrations.destroy');
+        Route::put('activity-registrations/approve/{activityRegistration}', 'approve')->name('admin.activity-registrations.approve');
     });
 });

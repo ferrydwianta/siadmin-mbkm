@@ -44,6 +44,7 @@ class RegisterRequest extends FormRequest
                 'required',
                 'numeric',
                 'digits:9',
+                Rule::unique('students', 'student_number'),
             ],
             'semester' => [
                 'required',

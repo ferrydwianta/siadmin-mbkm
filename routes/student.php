@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ActivityStudentController;
+use App\Http\Controllers\Student\ActivityStudentController;
 use App\Http\Controllers\Student\ActivityRegistrationStudentController;
 use App\Http\Controllers\Student\DashboardStudentController;
 use Illuminate\Support\Facades\Route;

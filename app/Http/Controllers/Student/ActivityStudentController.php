@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\ActivityResource;
 use App\Http\Resources\Lecturer\ActivityLecturerResource;
 use App\Http\Resources\Student\ActivityStudentResource;
