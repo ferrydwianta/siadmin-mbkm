@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Student;
 
+use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ActivityRegistrationStudentRequest extends FormRequest
@@ -25,7 +26,13 @@ class ActivityRegistrationStudentRequest extends FormRequest
             // rules for courses conversion
             'conversions' => [
                 'nullable', 
-                'array'
+                'array',
+                function ($attribute, $value, $fail) {
+                    $totalCredits = Course::whereIn('id', $value)->sum('credit');
+                    if ($totalCredits > 20) {
+                        $fail('Total SKS tidak boleh melebihi 20 SKS.');
+                    }
+                },
             ],
             'conversions.*' => [
                 'exists:courses,id'

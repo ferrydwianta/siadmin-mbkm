@@ -57,14 +57,14 @@ export default function Edit(props) {
                     <form onSubmit={onHandleSubmit}>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
                             <div className="col-span-full">
-                                <Label htmlFor="name">Nama</Label>
+                                <Label htmlFor="name">Tahun Ajaran</Label>
                                 <Input
                                     type="text"
                                     name="name"
                                     id="name"
                                     value={data.name}
                                     onChange={onHandleChange}
-                                    placeholder="Masukkan nama kegiatan MBKM"
+                                    placeholder="Masukkan nama tahun ajaran"
                                 />
                                 {errors.name && <InputError message={errors.name} />}
                             </div>

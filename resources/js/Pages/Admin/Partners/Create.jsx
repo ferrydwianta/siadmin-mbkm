@@ -61,7 +61,7 @@ export default function Create(props) {
                     <form onSubmit={onHandleSubmit}>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
                             <div className="col-span-full">
-                                <Label htmlFor="name">Nama</Label>
+                                <Label htmlFor="name">Nama Mitra*</Label>
                                 <Input
                                     type="text"
                                     name="name"
@@ -75,7 +75,7 @@ export default function Create(props) {
                             </div>
 
                             <div className="col-span-full">
-                                <Label htmlFor="description">Deskripsi</Label>
+                                <Label htmlFor="description">Deskripsi*</Label>
                                 <textarea
                                     name="description"
                                     id="description"

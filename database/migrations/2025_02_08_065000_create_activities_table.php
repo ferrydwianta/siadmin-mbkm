@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('partner_id')->constrained()->cascadeOnDelete();
             $table->text('description');
+            $table->string('type');
             $table->string('slug')->unique();
             $table->timestamps();
         });

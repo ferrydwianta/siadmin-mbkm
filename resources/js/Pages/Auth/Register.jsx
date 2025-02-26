@@ -3,6 +3,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { Button } from '@/Components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
 import { useRef } from 'react';
@@ -15,7 +16,7 @@ export default function Register(props) {
         password: '',
         avatar: null,
         student_number: '',
-        semester: 1,
+        semester: 5,
         batch: '',
     });
 
@@ -109,15 +110,22 @@ export default function Register(props) {
 
                                 <div className="col-span-2 mt-4">
                                     <InputLabel htmlFor="semester" value="Semester" />
-                                    <TextInput
-                                        type="number"
-                                        id="semester"
-                                        name="semester"
-                                        value={data.semester}
-                                        className="mt-1 block w-full"
-                                        onChange={onHandleChange}
-                                        required
-                                    />
+                                    <Select
+                                        defaultValue={String(data.semester)}
+                                        onValueChange={(value) => setData('semester', value)}
+                                    >
+                                        <SelectTrigger className="mt-1 h-11 rounded-md border-gray-300">
+                                            <SelectValue>{data.semester || 'Pilih Semester'}</SelectValue>
+                                        </SelectTrigger>
+
+                                        <SelectContent>
+                                            {[5, 6, 7, 8].map((value) => (
+                                                <SelectItem key={value} value={String(value)}>
+                                                    {value}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                     <InputError message={errors.semester} className="mt-2" />
                                 </div>
 

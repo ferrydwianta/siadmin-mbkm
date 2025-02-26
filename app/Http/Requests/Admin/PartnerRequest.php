@@ -30,12 +30,12 @@ class PartnerRequest extends FormRequest
                 'max:255'
             ],
             'description' => [
-                'nullable',
+                'required',
                 'string',
                 'min:0',
             ],
             'logo' => Rule::when($this->routeIs('admin.partners.store'), [
-                'required',
+                'nullable',
                 'mimes:png, jpg, jpeg, webp',
                 'max:2048',
             ]),

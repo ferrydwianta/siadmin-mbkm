@@ -17,6 +17,7 @@ class Activity extends Model
         'partner_id',
         'name',
         'description',
+        'type',
         'slug'
     ];
 
@@ -50,7 +51,8 @@ class Activity extends Model
         $query->when($filters['search'] ?? null, function($query, $search) {
             $query->whereAny([
                 'name',
-                'description'
+                'description',
+                'type',
             ], 'REGEXP', $search)
                 ->orWhereHas('partner', fn($query) => $query->where('name', 'REGEXP', $search));
         });

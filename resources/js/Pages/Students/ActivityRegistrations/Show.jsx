@@ -62,7 +62,18 @@ export default function Show(props) {
                 </div>
             ) : (
                 <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
-                    <h1 className="text-2xl font-semibold">Konversi SKS</h1>
+                    {(() => {
+                        const totalCredits = registration.conversions.reduce(
+                            (total, conv) => total + conv.course.credit,
+                            0,
+                        );
+
+                        return (
+                            <h1 className="text-2xl font-semibold">
+                                Konversi {totalCredits > 0 ? `(${totalCredits} SKS)` : ''}
+                            </h1>
+                        );
+                    })()}
                     <Table className="w-full">
                         <TableHeader>
                             <TableRow>

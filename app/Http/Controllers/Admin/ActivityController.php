@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ActivityType;
 use App\Enums\MessageType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ActivityRequest;
@@ -19,7 +20,7 @@ class ActivityController extends Controller
     public function index(): Response
     {
         $activities = Activity::query()
-            ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.slug', 'activities.created_at'])
+            ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.type', 'activities.slug', 'activities.created_at'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with('partner', 'courses')
@@ -55,14 +56,17 @@ class ActivityController extends Controller
                 'action' => route('admin.activities.store'),
             ],
 
+            'types' => ActivityType::options(),
+
             'partners' => Partner::query()->select('id', 'name')->orderBy('name')->get()->map(fn($item) => [
                 'value' => $item->id,
                 'label' => $item->name, 
             ]),
 
-            'courses' => Course::query()->select('id', 'name')->orderBy('name')->get()->map(fn($course) => [
+            'courses' => Course::query()->select('id', 'name', 'credit')->orderBy('name')->get()->map(fn($course) => [
                 'value' => $course->id,
                 'label' => $course->name,
+                'credit' => $course->credit
             ]),
         ]);
     }
@@ -74,6 +78,7 @@ class ActivityController extends Controller
                 'partner_id' => $request->partner_id,
                 'name' => $request->name,
                 'description' => $request->description,
+                'type' => $request->type,
             ]);
 
             if ($request->has('courses')) {
@@ -103,17 +108,21 @@ class ActivityController extends Controller
                 'partner_id' => $activity->partner_id,
                 'name' => $activity->name,
                 'description' => $activity->description,
+                'type' => $activity->type,
                 'courses' => $activity->courses->pluck('id')->toArray(), // Send only course IDs
             ],
+
+            'types' => ActivityType::options(),
 
             'partners' => Partner::query()->select('id', 'name')->orderBy('name')->get()->map(fn($item) => [
                 'value' => $item->id,
                 'label' => $item->name, 
             ]),
 
-            'courses' => Course::query()->select('id', 'name')->orderBy('name')->get()->map(fn($course) => [
+            'courses' => Course::query()->select('id', 'name', 'credit')->orderBy('name')->get()->map(fn($course) => [
                 'value' => $course->id,
                 'label' => $course->name,
+                'credit' => $course->credit,
             ]),
         ]);
     }
@@ -125,6 +134,7 @@ class ActivityController extends Controller
                 'partner_id' => $request->partner_id,
                 'name' => $request->name,
                 'description' => $request->description,
+                'type' => $request->type,
             ]);
 
             if ($request->has('courses')) {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class ActivityRequest extends FormRequest
 {
@@ -30,22 +32,34 @@ class ActivityRequest extends FormRequest
                 'required',
                 'string',
                 'min:3',
-                'max: 255',
+                'max:255',
             ],
             'description' => [
                 'required',
                 'string',
                 'min:0',
             ],
+            'type' => [
+                'required',
+                'string',
+                'min:0',
+                'max:255',
+            ],
 
             // rules for courses conversion
             'courses' => [
-                'nullable', 
-                'array'
+                'nullable',
+                'array',
+                // function ($attribute, $value, $fail) {
+                //     $totalCredits = Course::whereIn('id', $value)->sum('credit');
+                //     if ($totalCredits > 20) {
+                //         $fail('Total SKS tidak boleh melebihi 20 SKS.');
+                //     }
+                // },
             ],
             'courses.*' => [
                 'exists:courses,id'
-            ], 
+            ],
         ];
     }
 
@@ -53,8 +67,9 @@ class ActivityRequest extends FormRequest
     {
         return [
             'partner_id' => 'Mitra MBKM',
-            'name' => 'Nama Kegiatan',
+            'name' => 'Judul Kegiatan',
             'description' => 'Deskripsi',
+            'type' => 'Jenis Kegiatan',
             'courses' => 'Konversi Mata kuliah'
         ];
     }

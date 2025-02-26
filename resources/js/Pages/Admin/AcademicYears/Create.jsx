@@ -64,7 +64,7 @@ export default function Create(props) {
                                     id="name"
                                     value={data.name}
                                     onChange={onHandleChange}
-                                    placeholder="Masukkan nama kegiatan MBKM"
+                                    placeholder="Masukkan judul kegiatan MBKM"
                                 />
                                 {errors.name && <InputError message={errors.name} />}
                             </div>

@@ -128,12 +128,26 @@ export default function Index(props) {
                                             className="group inline-flex"
                                             onClick={() => onSortable('name')}
                                         >
-                                            Nama Kegiatan
+                                            Judul Kegiatan
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
+
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('type')}
+                                        >
+                                            Jenis Kegiatan
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+
                                     <TableHead>Deskripsi</TableHead>
                                     <TableHead className="min-w-[300px]">Konversi MKA</TableHead>
                                     <TableHead>
@@ -170,6 +184,7 @@ export default function Index(props) {
                                         </TableCell>
 
                                         <TableCell>{activity.name}</TableCell>
+                                        <TableCell>{activity.type}</TableCell>
                                         <TableCell className="max-w-[200px] overflow-hidden truncate text-ellipsis whitespace-nowrap">
                                             {activity.description}
                                         </TableCell>

@@ -41,7 +41,7 @@ export default function Index(props) {
                                     <TableHead>#</TableHead>
                                     <TableHead>Tahun Ajaran</TableHead>
                                     <TableHead>Mitra MBKM</TableHead>
-                                    <TableHead>Nama Kegiatan</TableHead>
+                                    <TableHead>Judul Kegiatan</TableHead>
                                     <TableHead>Konversi MKA</TableHead>
                                     <TableHead>Status</TableHead>
                                     <TableHead>Terdaftar Pada</TableHead>

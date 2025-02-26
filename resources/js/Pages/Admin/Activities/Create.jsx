@@ -18,6 +18,7 @@ export default function Create(props) {
         partner_id: null,
         name: '',
         description: '',
+        type: null,
         courses: [],
         _method: props.page_settings.method,
     });
@@ -38,6 +39,9 @@ export default function Create(props) {
         reset();
         multiSelectRef.current?.clear();
     };
+    const totalCredits = props.courses
+        .filter((course) => data.courses.includes(course.value))
+        .reduce((total, course) => total + course.credit, 0);
 
     return (
         <div className="flex w-full flex-col pb-32">
@@ -61,7 +65,7 @@ export default function Create(props) {
                     <form onSubmit={onHandleSubmit}>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
                             <div className="col-span-full">
-                                <Label htmlFor="partner_id">Mitra MBKM</Label>
+                                <Label htmlFor="partner_id">Mitra MBKM*</Label>
                                 <Select
                                     defaultValue={data.partner_id}
                                     onValueChange={(value) => setData('partner_id', value)}
@@ -85,20 +89,41 @@ export default function Create(props) {
                             </div>
 
                             <div className="col-span-full">
-                                <Label htmlFor="name">Nama</Label>
+                                <Label htmlFor="name">Judul Kegiatan*</Label>
                                 <Input
                                     type="text"
                                     name="name"
                                     id="name"
                                     value={data.name}
                                     onChange={onHandleChange}
-                                    placeholder="Masukkan nama kegiatan MBKM"
+                                    placeholder="Masukkan judul kegiatan MBKM"
                                 />
                                 {errors.name && <InputError message={errors.name} />}
                             </div>
 
                             <div className="col-span-full">
-                                <Label htmlFor="description">Deskripsi</Label>
+                                <Label htmlFor="type">Jenis Kegiatan*</Label>
+                                <Select defaultValue={data.type} onValueChange={(value) => setData('type', value)}>
+                                    <SelectTrigger>
+                                        <SelectValue>
+                                            {props.types.find((type) => type.value === data.type)?.label ||
+                                                'Pilih Jenis Kegiatan'}
+                                        </SelectValue>
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        {props.types.map((type, index) => (
+                                            <SelectItem key={index} value={type.value}>
+                                                {type.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                {errors.type && <InputError message={errors.type} />}
+                            </div>
+
+                            <div className="col-span-full">
+                                <Label htmlFor="description">Deskripsi*</Label>
                                 <textarea
                                     name="description"
                                     id="description"
@@ -113,7 +138,12 @@ export default function Create(props) {
                             </div>
 
                             <div className="col-span-full">
-                                <Label htmlFor="courses">Konversi Mata Kuliah</Label>
+                                <Label htmlFor="courses">
+                                    Konversi Mata Kuliah
+                                    {data.courses.length > 0 && (
+                                        <span className="ml-1 text-sm text-blue-600">({totalCredits} SKS)</span>
+                                    )}
+                                </Label>
                                 <MultiSelect
                                     ref={multiSelectRef}
                                     options={props.courses}

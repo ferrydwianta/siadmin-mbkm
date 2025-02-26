@@ -1,6 +1,7 @@
 import AlertAction from '@/Components/AlertAction';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
+import InputError from '@/Components/InputError';
 import { Thumbnail, ThumbnailFallback, ThumbnailImage } from '@/Components/Thumbnail';
 import { Button } from '@/Components/ui/button';
 import { Checkbox } from '@/Components/ui/checkbox';
@@ -32,6 +33,10 @@ export default function Create(props) {
     const onHandleReset = () => {
         reset();
     };
+
+    const totalCredits = props.activity.courses
+        .filter((course) => data.conversions.includes(course.id))
+        .reduce((sum, course) => sum + course.credit, 0);
 
     return (
         <div className="flex w-full flex-col gap-y-5">
@@ -72,7 +77,12 @@ export default function Create(props) {
                     </div>
                 ) : (
                     <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
-                        <h1 className="text-2xl font-semibold">Pilih Konversi SKS</h1>
+                        <h1 className="text-2xl font-semibold">
+                            Pilih Konversi
+                            {totalCredits > 0 && (
+                                <span className="ml-2 text-2xl text-blue-600">({totalCredits} SKS)</span>
+                            )}
+                        </h1>
                         <Table className="w-full">
                             <TableHeader>
                                 <TableRow>
@@ -108,6 +118,8 @@ export default function Create(props) {
                                 ))}
                             </TableBody>
                         </Table>
+
+                        {errors.conversions && <InputError message={errors.conversions} />}
                     </div>
                 )}
 
