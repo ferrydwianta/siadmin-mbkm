@@ -5,6 +5,7 @@ import InputError from '@/Components/InputError';
 import { Thumbnail, ThumbnailFallback, ThumbnailImage } from '@/Components/Thumbnail';
 import { Button } from '@/Components/ui/button';
 import { Checkbox } from '@/Components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import StudentLayout from '@/Layouts/StudentLayout';
 import { flashMessage } from '@/lib/utils';
@@ -15,6 +16,7 @@ import { toast } from 'sonner';
 export default function Create(props) {
     const { data, setData, post, reset, errors, processing } = useForm({
         conversions: [],
+        member_type: null,
         _method: props.page_settings._method,
     });
 
@@ -122,6 +124,32 @@ export default function Create(props) {
                         {errors.conversions && <InputError message={errors.conversions} />}
                     </div>
                 )}
+
+                <div className="mt-5 flex flex-col items-start gap-3 rounded-lg bg-gray-50 p-6 shadow-sm">
+                    <h1 className="text-2xl font-semibold">Pilih Jenis Anggota</h1>
+                    <div className="w-full lg:w-48">
+                        <Select
+                            defaultValue={String(data.member_type)}
+                            onValueChange={(value) => setData('member_type', value)}
+                        >
+                            <SelectTrigger className="mt-1 h-11 rounded-md border-gray-300">
+                                <SelectValue>
+                                    {props.memberTypes.find((type) => type.value == data.member_type)?.label ??
+                                        'Pilih Jenis Anggota'}
+                                </SelectValue>
+                            </SelectTrigger>
+
+                            <SelectContent>
+                                {props.memberTypes.map((type, index) => (
+                                    <SelectItem key={index} value={type.value}>
+                                        {type.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    {errors.member_type && <InputError message={errors.member_type} />}
+                </div>
 
                 <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
                     <Button type="button" variant="ghost" size="xl" onClick={onHandleReset}>

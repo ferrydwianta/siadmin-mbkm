@@ -15,7 +15,7 @@ class ActivityStudentController extends Controller
     public function index(): Response
     {
         $activities = Activity::query()
-            ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.slug', 'activities.created_at'])
+            ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.type', 'activities.slug', 'activities.created_at'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with('partner', 'courses')

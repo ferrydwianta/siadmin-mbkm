@@ -61,6 +61,9 @@ export function Detail({ activityRegistration, action }) {
                     <h3 className="text-md font-semibold">{activityRegistration.activity.name}</h3>
                     <p className="text-sm">{activityRegistration.activity.partner.name}</p>
 
+                    <h3 className="text-md mt-4 font-semibold">Jenis Anggota</h3>
+                    <p className="text-sm">{activityRegistration.memberType}</p>
+
                     <h3 className="text-md mt-4 font-semibold">Jadwal Ujian</h3>
                     {activityRegistration.schedule ? (
                         <span className="text-sm">

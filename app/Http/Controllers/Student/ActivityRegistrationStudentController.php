@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Enums\MemberType;
 use App\Enums\MessageType;
 use App\Enums\StudentStatus;
 use App\Http\Controllers\Controller;
@@ -68,12 +69,13 @@ class ActivityRegistrationStudentController extends Controller
 
         return inertia('Students/ActivityRegistrations/Create', [
             'page_settings' => [
-                'title' => 'Pilih Konversi Mata Kuliah',
+                'title' => 'Daftar Kegiatan MBKM',
                 'subtitle' => 'Pilih konversi mata kuliah yang ingin diambil!',
                 'method' => 'POST',
                 'action' => route('students.activity-registrations.store', [$activity])
             ],
-            'activity' => new ActivityStudentResource($activity->load('partner', 'courses'))
+            'activity' => new ActivityStudentResource($activity->load('partner', 'courses')),
+            'memberTypes' => MemberType::options()
         ]);
     }
 
@@ -84,7 +86,8 @@ class ActivityRegistrationStudentController extends Controller
             $activityRegistration = ActivityRegistration::create([
                 'student_id' => auth()->user()->student->id,
                 'academic_year_id' => activeAcademicYear()->id,
-                'activity_id' => $activity->id
+                'activity_id' => $activity->id,
+                'member_type' => $request->member_type
             ]);
 
             // Store each course as a conversion

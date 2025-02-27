@@ -8,7 +8,6 @@ import { Input } from '@/Components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import UseFilter from '@/hooks/UseFilter';
 import StudentLayout from '@/Layouts/StudentLayout';
-import { formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { IconBriefcase, IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -94,7 +93,7 @@ export default function Index(props) {
                                 </Thumbnail>
                                 <div>
                                     <h3 className="text-lg font-semibold">{activity.partner.name}</h3>
-                                    <p className="text-sm text-gray-500">{formatDateIndo(activity.created_at)}</p>
+                                    <p className="text-sm text-gray-500">{activity.type}</p>
                                 </div>
                             </CardHeader>
 

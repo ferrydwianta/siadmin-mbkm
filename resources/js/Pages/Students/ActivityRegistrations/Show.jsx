@@ -46,7 +46,7 @@ export default function Show(props) {
                 </Thumbnail>
                 <div className="text-center lg:text-left">
                     <h1 className="text-2xl font-bold">{registration.activity.name}</h1>
-                    <p className="text-md text-gray-600">{registration.activity.partner.name}</p>
+                    <p className="text-md text-gray-600">{registration.activity.type}</p>
                 </div>
             </div>
 
@@ -111,6 +111,9 @@ export default function Show(props) {
                         <span className="font-semibold text-blue-600">
                             {registration.academicYear.name} ({registration.academicYear.semester})
                         </span>
+                    </p>
+                    <p>
+                        Jenis Anggota: <span className="font-bold">{registration.memberType}</span>
                     </p>
                     <p>
                         Status: <Badge variant={STUDENTSTATUSVARIANT[registration.status]}>{registration.status}</Badge>

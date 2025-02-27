@@ -18,6 +18,7 @@ class ActivityRegistration extends Model
         'schedule_id',
         'status',
         'notes',
+        'member_type'
     ];
 
     protected function casts(): array
@@ -72,6 +73,7 @@ class ActivityRegistration extends Model
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
                 'status',
+                'member_type'
             ], 'REGEXP', $search)
                 ->orWhereHas('student', function ($query) use ($search) {
                     $query->whereAny(['student_number'], 'REGEXP', $search)

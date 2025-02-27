@@ -25,6 +25,19 @@ export function Detail({ activityRegistration }) {
                     <h3 className="text-md font-semibold">{activityRegistration.activity.name}</h3>
                     <p className="text-sm">{activityRegistration.activity.partner.name}</p>
 
+                    <h3 className="text-md mt-4 font-semibold">Jenis Anggota</h3>
+                    <p className="text-sm">{activityRegistration.memberType}</p>
+
+                    <h3 className="text-md mt-4 font-semibold">Jadwal Ujian</h3>
+                    {activityRegistration.schedule ? (
+                        <span className="text-sm">
+                            {formatDateIndo(activityRegistration.schedule.date)},{' '}
+                            {activityRegistration.schedule.start_time} - {activityRegistration.schedule.end_time}
+                        </span>
+                    ) : (
+                        <span className="text-sm italic text-gray-400">Belum ada jadwal</span>
+                    )}
+
                     <h3 className="text-md mt-4 font-semibold">Konversi SKS</h3>
                     {activityRegistration.conversions.length === 0 ? (
                         <>
@@ -63,16 +76,6 @@ export function Detail({ activityRegistration }) {
                                 </TableBody>
                             </Table>
                         </>
-                    )}
-
-                    <h3 className="text-md mt-4 font-semibold">Jadwal Ujian</h3>
-                    {activityRegistration.schedule ? (
-                        <span className="text-sm">
-                            {formatDateIndo(activityRegistration.schedule.date)},{' '}
-                            {activityRegistration.schedule.start_time} - {activityRegistration.schedule.end_time}
-                        </span>
-                    ) : (
-                        <span className="text-sm italic text-gray-400">Belum ada jadwal</span>
                     )}
                 </div>
             </SheetContent>

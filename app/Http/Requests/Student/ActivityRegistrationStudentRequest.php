@@ -37,13 +37,18 @@ class ActivityRegistrationStudentRequest extends FormRequest
             'conversions.*' => [
                 'exists:courses,id'
             ], 
+            'member_type' => [
+                'required',
+                'string'
+            ]
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'conversions' => 'Konversi Mata kuliah Diambil'
+            'conversions' => 'Konversi Mata kuliah Diambil',
+            'member_type' => 'Jenis Anggota'
         ];
     }
 }

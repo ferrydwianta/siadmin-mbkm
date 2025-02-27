@@ -44,7 +44,7 @@ class CourseController extends Controller
     {
         return inertia('Admin/Courses/Create', [
             'page_settings' => [
-                'title' => 'Tambah data mata kuiah',
+                'title' => 'Tambah Data Mata Kuliah',
                 'subtitle' => 'Buat mata kuliah baru, klik simpan setelah selesai!',
                 'method' => 'POST',
                 'action' => route('admin.courses.store'),
@@ -74,7 +74,7 @@ class CourseController extends Controller
     {
         return inertia('Admin/Courses/Edit', [
             'page_settings' => [
-                'title' => 'Edit data mata kuiah',
+                'title' => 'Edit Data Mata Kuliah',
                 'subtitle' => 'Edit mata kuliah, klik simpan setelah selesai!',
                 'method' => 'PUT',
                 'action' => route('admin.courses.update', $course),

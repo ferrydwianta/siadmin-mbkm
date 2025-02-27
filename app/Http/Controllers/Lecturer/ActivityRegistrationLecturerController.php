@@ -13,7 +13,7 @@ class ActivityRegistrationLecturerController extends Controller
     public function index(): Response
     {
         $activityRegistrations = ActivityRegistration::query()
-            ->select(['activity_registrations.id', 'activity_registrations.student_id', 'activity_registrations.academic_year_id', 'activity_registrations.status', 'activity_registrations.created_at', 'activity_registrations.activity_id', 'activity_registrations.notes', 'activity_registrations.schedule_id'])
+            ->select(['activity_registrations.id', 'activity_registrations.student_id', 'activity_registrations.academic_year_id', 'activity_registrations.status', 'activity_registrations.member_type', 'activity_registrations.created_at', 'activity_registrations.activity_id', 'activity_registrations.notes', 'activity_registrations.schedule_id'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with(['academicYear', 'activity', 'schedule', 'conversions', 'conversions.course', 'student', 'student.user'])

@@ -19,6 +19,7 @@ class ActivityRegistrationResource extends JsonResource
             'status' => $this->status,
             'created_at' => $this->created_at,
             'notes' => $this->notes,
+            'memberType' => $this->member_type,
             'academicYear' => $this->whenLoaded('academicYear', [
                 'id' => $this->academicYear?->id,
                 'name' => $this->academicYear?->name,

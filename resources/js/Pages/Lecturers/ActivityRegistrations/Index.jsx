@@ -158,6 +158,19 @@ export default function Index(props) {
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
+                                            onClick={() => onSortable('member_type')}
+                                        >
+                                            Jenis Anggota
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('schedule_id')}
                                         >
                                             Jadwal Ujian
@@ -213,6 +226,8 @@ export default function Index(props) {
                                                 {registration.status}
                                             </Badge>
                                         </TableCell>
+
+                                        <TableCell>{registration.memberType}</TableCell>
 
                                         <TableCell>
                                             {registration.schedule ? (

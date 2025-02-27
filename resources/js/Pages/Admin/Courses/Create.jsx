@@ -56,7 +56,7 @@ export default function Create(props) {
                     <form onSubmit={onHandleSubmit}>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
                             <div className="col-span-full">
-                                <Label htmlFor="name">Nama Mata Kuliah</Label>
+                                <Label htmlFor="name">Nama Mata Kuliah*</Label>
                                 <Input
                                     type="text"
                                     name="name"
@@ -69,7 +69,7 @@ export default function Create(props) {
                             </div>
 
                             <div className="col-span-full">
-                                <Label htmlFor="code">Kode MKA</Label>
+                                <Label htmlFor="code">Kode MKA*</Label>
                                 <Input
                                     type="text"
                                     name="code"
@@ -82,7 +82,7 @@ export default function Create(props) {
                             </div>
 
                             <div className="col-span-2">
-                                <Label htmlFor="credit">Satuan Kredit Semester (SKS)</Label>
+                                <Label htmlFor="credit">Satuan Kredit Semester (SKS)*</Label>
                                 <Input
                                     type="number"
                                     name="credit"

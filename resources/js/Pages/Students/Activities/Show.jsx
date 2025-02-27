@@ -36,7 +36,7 @@ export default function Show(props) {
                 </Thumbnail>
                 <div className="text-center lg:text-left">
                     <h1 className="text-2xl font-bold">{props.activity.name}</h1>
-                    <p className="text-md text-gray-600">{props.activity.partner.name}</p>
+                    <p className="text-md text-gray-600">{props.activity.type}</p>
                 </div>
             </div>
 

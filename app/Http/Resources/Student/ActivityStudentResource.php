@@ -19,6 +19,7 @@ class ActivityStudentResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'type' => $this->type,
             'slug' => $this->slug,
             'created_at' => $this->created_at,
             'partner' => $this->whenLoaded('partner', [
