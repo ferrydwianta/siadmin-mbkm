@@ -254,7 +254,7 @@ export default function Index(props) {
                                                 />
 
                                                 <Approve
-                                                    name={registration.student.user.name}
+                                                    registration={registration}
                                                     statuses={props.statuses}
                                                     action={route('admin.activity-registrations.approve', [
                                                         registration,

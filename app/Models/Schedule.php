@@ -15,7 +15,6 @@ class Schedule extends Model
         'start_time',
         'end_time',
         'date',
-        'quota',
     ];
 
     public function academicYear(): BelongsTo

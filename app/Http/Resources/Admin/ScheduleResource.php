@@ -20,13 +20,18 @@ class ScheduleResource extends JsonResource
             'start_time' => Carbon::parse($this->start_time)->format('H:i'),
             'end_time' => Carbon::parse($this->end_time)->format('H:i'),
             'date' => $this->date,
-            'quota' => $this->quota,
             'created_at' => $this->created_at,
-            'taken_quota' => $this->taken_quota,
             'academicYear' => $this->whenLoaded('academicYear', [
                 'id' => $this->academicYear?->id,
                 'name' => $this->academicYear?->name,
             ]),
+            'activityRegistrations' => $this->whenLoaded('activityRegistrations', fn() => 
+                $this->activityRegistrations->map(fn($registration) => [
+                    'value' => $registration->id,
+                    'student' => $registration->student->load('user'),
+                    'activity' => $registration->activity
+                ])->sortBy('label')->values()
+            ),
         ];
     }
 }

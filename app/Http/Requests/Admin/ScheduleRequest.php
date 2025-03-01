@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Enums\ScheduleDay;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
 class ScheduleRequest extends FormRequest
@@ -34,10 +35,18 @@ class ScheduleRequest extends FormRequest
                 'required',
                 'date',
             ],
-            'quota' => [
-                'required',
-                'integer'
-            ]
+            'selected_registrations' => [
+                'array',
+                Rule::when($this->routeIs('admin.schedules.store'), [
+                    'required',
+                ]),
+                Rule::when($this->routeIs('admin.schedules.update'), [
+                    'nullable',
+                ]),
+            ],
+            'selected_registrations.*' => [
+                'exists:activity_registrations,id'
+            ], 
         ];
     }
 
@@ -47,7 +56,7 @@ class ScheduleRequest extends FormRequest
             'start_time' => 'Waktu Mulai',
             'end_time' => 'Waktu Berakhir',
             'date' => 'Hari',
-            'quota' => 'Kuota'
+            'selected_registrations' => 'Mahasiswa'
         ];
     }
 }

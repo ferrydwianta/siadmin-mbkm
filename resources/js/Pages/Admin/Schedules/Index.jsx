@@ -14,6 +14,7 @@ import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { IconArrowsDownUp, IconCalendar, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
+import { Detail } from './Detail';
 
 export default function Index(props) {
     const { data: schedules, meta, links } = props.schedules;
@@ -153,20 +154,7 @@ export default function Index(props) {
                                             className="group inline-flex"
                                             onClick={() => onSortable('date')}
                                         >
-                                            Tanggal
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                <IconArrowsDownUp className="size-4" />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-
-                                    <TableHead>
-                                        <Button
-                                            variant="ghost"
-                                            className="group inline-flex"
-                                            onClick={() => onSortable('quota')}
-                                        >
-                                            Kuota
+                                            Tanggal Ujian
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
@@ -198,10 +186,11 @@ export default function Index(props) {
                                         <TableCell>{schedule.start_time}</TableCell>
                                         <TableCell>{schedule.end_time}</TableCell>
                                         <TableCell>{formatDateIndo(schedule.date)}</TableCell>
-                                        <TableCell>{schedule.quota}</TableCell>
                                         <TableCell>{formatDateIndo(schedule.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
+                                                <Detail schedule={schedule} />
+
                                                 <Button variant="blue" size="sm" asChild>
                                                     <Link href={route('admin.schedules.edit', [schedule])}>
                                                         <IconPencil className="size-4" />

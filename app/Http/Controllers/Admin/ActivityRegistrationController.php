@@ -80,7 +80,7 @@ class ActivityRegistrationController extends Controller
             match ($activityRegistration->status->value) {
                 StudentStatus::REJECT->value => flashMessage('Pendaftaran Kegiatan Mahasiswa berhasil ditolak', 'error'),
                 StudentStatus::APPROVED->value => flashMessage('Pendaftaran Kegiatan Mahasiswa berhasil diterima'),
-                default => null
+                default => flashMessage('Berhasil merubah status menjadi Pending!', 'warning')
             };
             return to_route('admin.activity-registrations.index');
         } catch (Throwable $e) {

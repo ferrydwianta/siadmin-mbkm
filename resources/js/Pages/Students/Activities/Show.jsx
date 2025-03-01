@@ -15,7 +15,7 @@ export default function Show(props) {
                     icon={IconBriefcase}
                 />
 
-                <div className="flex flex-row gap-5">
+                <div className="flex flex-row gap-3">
                     <Button variant="blue" size="xl" asChild className="w-full lg:w-auto">
                         <Link href={route('students.activity-registrations.create', [props.activity])}>Daftar</Link>
                     </Button>

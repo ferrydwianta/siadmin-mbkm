@@ -2,11 +2,10 @@ import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import { Thumbnail, ThumbnailFallback, ThumbnailImage } from '@/Components/Thumbnail';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
-import { Badge } from '@/Components/ui/badge';
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import StudentLayout from '@/Layouts/StudentLayout';
-import { STUDENTSTATUS, STUDENTSTATUSVARIANT } from '@/lib/utils';
+import { formatDateIndo, STUDENTSTATUS } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { IconArrowLeft, IconBooks, IconNotes } from '@tabler/icons-react';
 
@@ -34,6 +33,22 @@ export default function Show(props) {
                 <Alert variant="destructive">
                     <AlertDescription className="text-sm">
                         Pendaftaran Kegiatan MBKM anda tidak disetujui! {registration.notes}
+                    </AlertDescription>
+                </Alert>
+            )}
+
+            {registration.status === STUDENTSTATUS.APPROVED && (
+                <Alert variant="greenGhost">
+                    <AlertDescription className="text-sm">
+                        Pendaftaran Kegiatan MBKM anda telah disetujui!
+                    </AlertDescription>
+                </Alert>
+            )}
+
+            {registration.status === STUDENTSTATUS.PENDING && (
+                <Alert variant="yellowGhost">
+                    <AlertDescription className="text-sm">
+                        Sedang Menunggu Verifikasi oleh Koordinator!
                     </AlertDescription>
                 </Alert>
             )}
@@ -115,9 +130,20 @@ export default function Show(props) {
                     <p>
                         Jenis Anggota: <span className="font-bold">{registration.memberType}</span>
                     </p>
-                    <p>
-                        Status: <Badge variant={STUDENTSTATUSVARIANT[registration.status]}>{registration.status}</Badge>
-                    </p>
+                    {registration.status === STUDENTSTATUS.APPROVED && (
+                        <p>
+                            Tanggal Ujian:
+                            {registration.schedule ? (
+                                <span className="text-sm font-bold">
+                                    {' '}
+                                    {formatDateIndo(registration.schedule.date)}, {registration.schedule.start_time} -{' '}
+                                    {registration.schedule.end_time}
+                                </span>
+                            ) : (
+                                <span className="text-gray-400"> Belum ada jadwal</span>
+                            )}
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

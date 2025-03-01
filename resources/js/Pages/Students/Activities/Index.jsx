@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import UseFilter from '@/hooks/UseFilter';
 import StudentLayout from '@/Layouts/StudentLayout';
 import { Link } from '@inertiajs/react';
-import { IconBriefcase, IconRefresh } from '@tabler/icons-react';
+import { IconBriefcase, IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -30,6 +30,13 @@ export default function Index(props) {
                     subtitle={props.page_settings.subtitle}
                     icon={IconBriefcase}
                 />
+
+                <Button variant="orange" size="xl" className="w-full lg:w-auto" asChild>
+                    <Link href={route('students.request-activities.create')}>
+                        <IconPlus className="size-4" />
+                        Pengajuan
+                    </Link>
+                </Button>
             </div>
 
             {/* Filters & Sorting */}
@@ -57,11 +64,6 @@ export default function Index(props) {
                                 ))}
                             </SelectContent>
                         </Select>
-
-                        <Button variant="red" onClick={() => setParams(props.state)} size="xl">
-                            <IconRefresh className="size-4" />
-                            Bersihkan
-                        </Button>
                     </div>
                 </CardHeader>
             </Card>
@@ -80,13 +82,13 @@ export default function Index(props) {
                     activities.map((activity, index) => (
                         <Card
                             key={index}
-                            className="relative isolate flex h-full flex-col rounded-xl shadow-md transition-shadow hover:scale-105 hover:shadow-xl"
+                            className="relative isolate flex h-full flex-col rounded-xl shadow-sm transition-shadow hover:scale-105 hover:shadow-xl hover:shadow-blue-500/10"
                         >
                             <a href={route('students.activities.show', { activity })}>
                                 <span className="absolute inset-0 z-40"></span>
                             </a>
                             {/* Partner Info */}
-                            <CardHeader className="flex flex-row items-center gap-4 border-b pb-6">
+                            <CardHeader className="flex flex-row items-center gap-4 border-b">
                                 <Thumbnail className="h-14 w-14">
                                     <ThumbnailImage src={activity.partner.logo} />
                                     <ThumbnailFallback>{activity.partner.name.substring(0, 1)}</ThumbnailFallback>
@@ -98,7 +100,7 @@ export default function Index(props) {
                             </CardHeader>
 
                             {/* Card Content */}
-                            <CardContent className="flex-grow p-6">
+                            <CardContent className="flex-grow p-4">
                                 <h2 className="mb-2 text-xl font-bold">{activity.name}</h2>
                                 <p className="line-clamp-3 text-gray-700">{activity.description}</p>
 

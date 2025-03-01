@@ -1,5 +1,6 @@
 import HeaderTitle from '@/Components/HeaderTitle';
 import InputError from '@/Components/InputError';
+import { MultiSelect } from '@/Components/MultiSelect';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -8,6 +9,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
 import { IconArrowLeft, IconCalendar, IconCheck } from '@tabler/icons-react';
+import { useRef } from 'react';
 import { toast } from 'sonner';
 
 export default function Create(props) {
@@ -15,7 +17,7 @@ export default function Create(props) {
         start_time: '',
         end_time: '',
         date: '',
-        quota: 0,
+        selected_registrations: [],
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => setData(e.target.name, e.target.value);
@@ -30,8 +32,10 @@ export default function Create(props) {
             },
         });
     };
+    const multiSelectRef = useRef(null);
     const onHandleReset = () => {
         reset();
+        multiSelectRef.current?.clear();
     };
 
     return (
@@ -88,16 +92,20 @@ export default function Create(props) {
                             </div>
 
                             <div className="col-span-full">
-                                <Label htmlFor="quota">Kuota Mahasiswa</Label>
-                                <Input
-                                    type="number"
-                                    name="quota"
-                                    id="quota"
-                                    value={data.quota}
-                                    onChange={onHandleChange}
-                                    placeholder="Masukkan kuota mahasiswa"
+                                <Label htmlFor="selected_registrations">Mahasiswa</Label>
+                                <MultiSelect
+                                    ref={multiSelectRef}
+                                    options={props.activityRegistrations}
+                                    onValueChange={(values) => setData('selected_registrations', values)}
+                                    defaultValue={[]}
+                                    placeholder="Pilih Mahasiswa"
+                                    variant="custom"
+                                    animation={2}
+                                    maxCount={props.activityRegistrations.length}
                                 />
-                                {errors.quota && <InputError message={errors.quota} />}
+                                {errors.selected_registrations && (
+                                    <InputError message={errors.selected_registrations} />
+                                )}
                             </div>
                         </div>
 

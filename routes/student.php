@@ -3,6 +3,7 @@
 use App\Http\Controllers\Student\ActivityStudentController;
 use App\Http\Controllers\Student\ActivityRegistrationStudentController;
 use App\Http\Controllers\Student\DashboardStudentController;
+use App\Http\Controllers\Student\RequestActivityStudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('students')->middleware(['auth', 'role:Student'])->group(function(){
@@ -18,5 +19,10 @@ Route::prefix('students')->middleware(['auth', 'role:Student'])->group(function(
     Route::controller(ActivityStudentController::class)->group(function(){
         Route::get('activities', 'index')->name('students.activities.index');
         Route::get('activities/detail/{activity}', 'show')->name('students.activities.show');
+    });
+
+    Route::controller(RequestActivityStudentController::class)->group(function(){
+        Route::get('request-activities/create', 'create')->name('students.request-activities.create');
+        Route::post('request-activities/create', 'store')->name('students.request-activities.store');
     });
 });

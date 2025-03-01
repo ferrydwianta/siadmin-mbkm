@@ -10,11 +10,11 @@ import { IconChecklist } from '@tabler/icons-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-export default function Approve({ name, statuses, action }) {
+export default function Approve({ registration, statuses, action }) {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const { data, setData, put, errors, processing } = useForm({
-        status: 'Pending',
-        notes: '',
+        status: registration.status,
+        notes: registration.notes ?? '',
         _method: 'PUT',
     });
     const onHandleSubmit = (e) => {
@@ -40,7 +40,7 @@ export default function Approve({ name, statuses, action }) {
 
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Setujui KRS Mahasiswa {name}</SheetTitle>
+                    <SheetTitle>Setujui KRS Mahasiswa {registration.student.user.name}</SheetTitle>
                     <SheetDescription>Periksa pendaftaran kegiatan MBKM yang diajukan mahasiswa.</SheetDescription>
                 </SheetHeader>
 

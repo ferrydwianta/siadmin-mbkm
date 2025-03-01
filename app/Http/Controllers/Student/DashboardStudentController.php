@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Enums\StudentStatus;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,13 @@ class DashboardStudentController extends Controller
 {
     public function __invoke(): Response
     {
+        $activityRegistrations = auth()->user()->student
+            ->load('activityRegistrations.schedule', 'activityRegistrations.activity')
+            ->activityRegistrations
+            ->whereNotNull('schedule_id')
+            ->where('status', '=', StudentStatus::APPROVED)
+            ->values();
+
         return inertia('Students/Dashboard', [
             'page_settings' => [
                 'title' => 'Dashboard',
@@ -22,7 +30,8 @@ class DashboardStudentController extends Controller
                 'partners' => Partner::count(),
                 'activities' => Activity::count(),
                 'courses' => Course::count(),
-            ]
+            ],
+            'activityRegistrations' => $activityRegistrations,
         ]);
     }
 }

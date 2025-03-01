@@ -127,12 +127,12 @@ export default function Create(props) {
 
                 <div className="mt-5 flex flex-col items-start gap-3 rounded-lg bg-gray-50 p-6 shadow-sm">
                     <h1 className="text-2xl font-semibold">Pilih Jenis Anggota</h1>
-                    <div className="w-full lg:w-48">
+                    <div className="w-full lg:w-52">
                         <Select
                             defaultValue={String(data.member_type)}
                             onValueChange={(value) => setData('member_type', value)}
                         >
-                            <SelectTrigger className="mt-1 h-11 rounded-md border-gray-300">
+                            <SelectTrigger className="mt-1 h-11 rounded-lg border-gray-300">
                                 <SelectValue>
                                     {props.memberTypes.find((type) => type.value == data.member_type)?.label ??
                                         'Pilih Jenis Anggota'}
