@@ -13,12 +13,21 @@ use App\Models\ActivityRegistration;
 use App\Models\Schedule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 use Inertia\Response;
 use Throwable;
 
-class ScheduleController extends Controller
+class ScheduleController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('checkActiveAcademicYear', only: ['create'])
+        ];
+    }
+
     public function index(): Response
     {
         $schedule = Schedule::query()
@@ -78,14 +87,9 @@ class ScheduleController extends Controller
     {
         try {
             DB::beginTransaction();
-            $academicYearId = optional(activeAcademicYear())->id;
-            if (!$academicYearId) {
-                flashMessage(MessageType::ERROR->message('Tahun akademik tidak ditemukan. Pastikan tahun akademik aktif sudah diatur.'), 'error');
-                return redirect()->back()->withInput();
-            }
 
             $schedule = Schedule::create([
-                'academic_year_id' => $academicYearId,
+                'academic_year_id' => activeAcademicYear()->id,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
                 'date' => $request->date,
@@ -120,7 +124,7 @@ class ScheduleController extends Controller
             : collect();
 
         $newRegistrations = ActivityRegistration::query()
-            ->where('academic_year_id', activeAcademicYear()->id)
+            ->where('academic_year_id', $schedule->academic_year_id)
             ->where('status', '=', StudentStatus::APPROVED)
             ->whereNull('schedule_id')
             ->with('student.user:id,name', 'activity:id,name')

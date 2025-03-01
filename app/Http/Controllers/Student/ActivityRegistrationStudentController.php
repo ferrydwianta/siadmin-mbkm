@@ -50,11 +50,6 @@ class ActivityRegistrationStudentController extends Controller
 
     public function create(Activity $activity): Response | RedirectResponse
     {
-        if (!activeAcademicYear()) {
-            flashMessage('Tidak ada tahun ajaran aktif! Silahkan hubungi koordinator', 'warning');
-            return back();
-        }
-
         $activityRegistration = ActivityRegistration::query()
             ->where('student_id', auth()->user()->student->id)
             ->where('activity_id', $activity->id)
