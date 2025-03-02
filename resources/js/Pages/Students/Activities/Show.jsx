@@ -29,7 +29,7 @@ export default function Show(props) {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center gap-6 rounded-lg bg-gray-50 p-6 shadow-sm lg:flex-row">
+            <div className="flex flex-col items-center gap-6 rounded-xl bg-neutral-50 p-6 shadow-sm lg:flex-row">
                 <Thumbnail className="h-24 w-24">
                     <ThumbnailImage src={props.activity.partner.logo} />
                     <ThumbnailFallback>{props.activity.partner.name.substring(0, 1)}</ThumbnailFallback>
@@ -40,12 +40,12 @@ export default function Show(props) {
                 </div>
             </div>
 
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+            <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                 <h1 className="text-2xl font-semibold">Rincian Kegiatan</h1>
                 <p className="text-justify text-sm text-gray-600">{props.activity.description}</p>
             </div>
 
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+            <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                 <h1 className="text-2xl font-semibold">Tentang Perusahaan</h1>
 
                 <div className="flex flex-row items-center gap-x-4">
@@ -80,7 +80,7 @@ export default function Show(props) {
                 </div>
             </div>
 
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+            <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                 <h1 className="text-2xl font-semibold">Konversi Mata Kuliah</h1>
                 <div className="flex flex-wrap gap-2">
                     {props.activity.courses.length > 0 ? (

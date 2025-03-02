@@ -15,10 +15,13 @@ class Activity extends Model
 
     protected $fillable = [
         'partner_id',
+        'student_id',
         'name',
         'description',
         'type',
-        'slug'
+        'slug',
+        'document',
+        'status',
     ];
 
     public function sluggable(): array
@@ -35,6 +38,11 @@ class Activity extends Model
         return $this->belongsTo(Partner::class);
     }
 
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
+
     // Many-to-many relations with pivot table (course conversions)
     public function courses(): BelongsToMany
     {
@@ -48,22 +56,29 @@ class Activity extends Model
 
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, function($query, $search) {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
-                'name',
-                'description',
-                'type',
+                'activities.name',
+                'activities.description',
+                'activities.type',
             ], 'REGEXP', $search)
-                ->orWhereHas('partner', fn($query) => $query->where('name', 'REGEXP', $search));
+                ->orWhereHas('partner', fn($query) => $query->where('name', 'REGEXP', $search))
+                ->orWhereHas('student', function ($query) use ($search) {
+                    $query->whereAny(['student_number'], 'REGEXP', $search)
+                        ->orWhereHas('user', fn($query) => $query->whereAny(['name'], 'REGEXP', $search));
+                });
         });
     }
 
     public function scopeSorting(Builder $query, array $sorts): void
     {
-        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function($query) use ($sorts) {
-            match($sorts['field']) {
+        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
+            match ($sorts['field']) {
                 'partner_id' => $query->join('partners', 'activities.partner_id', '=', 'partners.id')
                     ->orderBy('partners.name', $sorts['direction']),
+                'student_id' => $query->join('students', 'activities.student_id', '=', 'students.id')
+                    ->join('users', 'students.user_id', '=', 'users.id')
+                    ->orderBy('users.name', $sorts['direction']),
                 default => $query->orderBy($sorts['field'], $sorts['direction']),
             };
         });

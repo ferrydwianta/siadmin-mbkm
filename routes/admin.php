@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\LecturerController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\RequestActivityController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\StudentController;
@@ -92,5 +93,11 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::delete('activity-registrations/destroy/{activityRegistration}', 'destroy')->name('admin.activity-registrations.destroy');
         Route::put('activity-registrations/approve/{activityRegistration}', 'approve')->name('admin.activity-registrations.approve');
         Route::put('activity-registrations/grades/{activityRegistration}', 'grades')->name('admin.activity-registrations.grades');
+    });
+
+    Route::controller(RequestActivityController::class)->group(function(){
+        Route::get('request-activities', 'index')->name('admin.request-activities.index');
+        Route::delete('request-activities/destroy/{activity:slug}', 'destroy')->name('admin.request-activities.destroy');
+        Route::put('request-activities/approve/{activity:slug}', 'approve')->name('admin.request-activities.approve');
     });
 });

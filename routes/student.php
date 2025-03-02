@@ -24,5 +24,8 @@ Route::prefix('students')->middleware(['auth', 'role:Student'])->group(function(
     Route::controller(RequestActivityStudentController::class)->group(function(){
         Route::get('request-activities/create', 'create')->name('students.request-activities.create');
         Route::post('request-activities/create', 'store')->name('students.request-activities.store');
+        Route::get('request-activities/create-partner', 'createPartner')->name('students.request-activities.create-partner');
+        Route::post('request-activities/create-partner', 'storePartner')->name('students.request-activities.store-partner');
+        Route::get('request-activities/history', 'history')->name('students.request-activities.history');
     });
 });

@@ -54,7 +54,7 @@ export default function Show(props) {
             )}
 
             {/* Activity Info */}
-            <div className="flex flex-col items-center gap-6 rounded-lg bg-gray-50 p-6 shadow-sm lg:flex-row">
+            <div className="flex flex-col items-center gap-6 rounded-xl bg-neutral-50 p-6 shadow-sm lg:flex-row">
                 <Thumbnail className="h-24 w-24">
                     <ThumbnailImage src={registration.activity.partner.logo} />
                     <ThumbnailFallback>{registration.activity.partner.name.substring(0, 1)}</ThumbnailFallback>
@@ -68,7 +68,7 @@ export default function Show(props) {
             {/* SKS Conversion Section */}
 
             {registration.conversions.length === 0 ? (
-                <div className="flex flex-col items-center gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+                <div className="flex flex-col items-center gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                     <EmptyState
                         icon={IconBooks}
                         title="Tidak ada Konversi SKS"
@@ -76,7 +76,7 @@ export default function Show(props) {
                     />
                 </div>
             ) : (
-                <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+                <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                     {(() => {
                         const totalCredits = registration.conversions.reduce(
                             (total, conv) => total + conv.course.credit,
@@ -118,7 +118,7 @@ export default function Show(props) {
                 </div>
             )}
 
-            <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+            <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                 <h1 className="text-2xl font-semibold">Informasi Pendaftaran</h1>
                 <div className="flex flex-col gap-y-2 text-sm text-gray-600">
                     <p>

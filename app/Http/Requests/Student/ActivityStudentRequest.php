@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class PartnerRequest extends FormRequest
+class ActivityStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->user()->hasRole('Admin'); // Already logged in and role is admin
+        return auth()->check() && auth()->user()->hasRole('Student');
     }
 
     /**
@@ -23,33 +22,31 @@ class PartnerRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'partner_id' => [
+                'required',
+                'exists:partners,id',
+            ],
             'name' => [
                 'required',
                 'string',
                 'min:3',
-                'max:255'
+                'max:255',
             ],
             'description' => [
                 'required',
                 'string',
                 'min:0',
             ],
-            'logo' => [
-                'nullable',
-                'mimes:png, jpg, jpeg, webp',
-                'max:2048',
-            ],
-            'address' => [
-                'nullable',
+            'type' => [
+                'required',
                 'string',
                 'min:0',
-                'max:255'
+                'max:255',
             ],
-            'contact' => [
+            'document' => [
                 'nullable',
-                'regex:/^\+?[0-9]+$/', // Must be numbers and can start with +
-                'min:0',
-                'max:15'
+                'mimes:pdf,docx,doc',
+                'max:3072',
             ],
         ];
     }
@@ -57,11 +54,11 @@ class PartnerRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => 'Nama Mitra',
+            'partner_id' => 'Mitra MBKM',
+            'name' => 'Judul Kegiatan',
             'description' => 'Deskripsi',
-            'logo' => 'Logo',
-            'address' => 'Alamat Mitra',
-            'contact' => 'Contact Person'
+            'type' => 'Jenis Kegiatan',
+            'document' => 'Dokumen Pendukung'
         ];
     }
 }

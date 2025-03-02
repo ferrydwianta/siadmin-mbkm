@@ -27,6 +27,11 @@ class Student extends Model
         return $this->hasMany(ActivityRegistration::class);
     }
 
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class);
+    }
+
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function($query, $search) {

@@ -57,7 +57,7 @@ export default function Create(props) {
                 </Button>
             </div>
 
-            <div className="flex flex-col items-center gap-6 rounded-lg bg-gray-50 p-6 shadow-sm lg:flex-row">
+            <div className="flex flex-col items-center gap-6 rounded-xl bg-neutral-50 p-6 shadow-sm lg:flex-row">
                 <Thumbnail className="h-24 w-24">
                     <ThumbnailImage src={props.activity.partner.logo} />
                     <ThumbnailFallback>{props.activity.partner.name.substring(0, 1)}</ThumbnailFallback>
@@ -70,7 +70,7 @@ export default function Create(props) {
 
             <form onSubmit={onHandleSubmit}>
                 {props.activity.courses.length == 0 ? (
-                    <div className="flex flex-col items-center gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+                    <div className="flex flex-col items-center gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                         <EmptyState
                             icon={IconBriefcase}
                             title="Tidak ada konversi matakuliah"
@@ -78,7 +78,7 @@ export default function Create(props) {
                         />
                     </div>
                 ) : (
-                    <div className="flex flex-col items-start gap-4 rounded-lg bg-gray-50 p-6 shadow-sm">
+                    <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
                         <h1 className="text-2xl font-semibold">
                             Pilih Konversi
                             {totalCredits > 0 && (
@@ -125,14 +125,14 @@ export default function Create(props) {
                     </div>
                 )}
 
-                <div className="mt-5 flex flex-col items-start gap-3 rounded-lg bg-gray-50 p-6 shadow-sm">
+                <div className="mt-5 flex flex-col items-start gap-3 rounded-xl bg-neutral-50 p-6 shadow-sm">
                     <h1 className="text-2xl font-semibold">Pilih Jenis Anggota</h1>
                     <div className="w-full lg:w-52">
                         <Select
                             defaultValue={String(data.member_type)}
                             onValueChange={(value) => setData('member_type', value)}
                         >
-                            <SelectTrigger className="mt-1 h-11 rounded-lg border-gray-300">
+                            <SelectTrigger className="mt-1 h-11 rounded-lg border-gray-300 bg-white">
                                 <SelectValue>
                                     {props.memberTypes.find((type) => type.value == data.member_type)?.label ??
                                         'Pilih Jenis Anggota'}

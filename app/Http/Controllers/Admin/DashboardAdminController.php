@@ -24,7 +24,12 @@ class DashboardAdminController extends Controller
                 'registrations' => ActivityRegistration::query()
                     ->where('status', StudentStatus::PENDING->value)
                     ->count(),
-                'activities' => Activity::count(),
+                'activities' => Activity::query()
+                    ->where('status', StudentStatus::APPROVED->value)
+                    ->count(),
+                'requests' => Activity::query()
+                    ->where('status', StudentStatus::PENDING->value)
+                    ->count(),
             ],
             'academicYear' => activeAcademicYear()
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Lecturer;
 
+use App\Enums\StudentStatus;
 use Inertia\Response;
 use App\Models\Course;
 use App\Models\Student;
@@ -20,7 +21,9 @@ class DashboardLecturerController extends Controller
                 'subtitle' => 'Selamat datang di Sistem Informasi Administrasi MBKM',
             ],
             'count' => [
-                'activities' => Activity::count(),
+                'activities' => Activity::query()
+                    ->where('status', StudentStatus::APPROVED->value)
+                    ->count(),
                 'students' => Student::count(),
                 'partners' => Partner::count(),
             ],

@@ -28,7 +28,9 @@ class DashboardStudentController extends Controller
             ],
             'count' => [
                 'partners' => Partner::count(),
-                'activities' => Activity::count(),
+                'activities' => Activity::query()
+                    ->where('status', StudentStatus::APPROVED->value)
+                    ->count(),
                 'courses' => Course::count(),
             ],
             'activityRegistrations' => $activityRegistrations,

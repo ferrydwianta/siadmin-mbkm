@@ -49,7 +49,9 @@ export function Detail({ schedule }) {
                                     {schedule.activityRegistrations.map((registration, index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index + 1}.</TableCell>
-                                            <TableCell>{registration.student.user.name}</TableCell>
+                                            <TableCell>
+                                                {registration.student.user.name} ({registration.student.student_number})
+                                            </TableCell>
                                             <TableCell>{registration.activity.name}</TableCell>
                                         </TableRow>
                                     ))}

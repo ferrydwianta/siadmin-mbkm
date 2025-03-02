@@ -49,7 +49,7 @@ export default function Dashboard(props) {
                         iconClassName: 'text-white',
                     }}
                 >
-                    <div className="text-2xl font-bold">{props.count.activities}</div>
+                    <div className="text-2xl font-bold">{props.count.requests}</div>
                 </CardStat>
 
                 <CardStat

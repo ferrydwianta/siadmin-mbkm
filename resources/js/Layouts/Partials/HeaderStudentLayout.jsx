@@ -53,7 +53,10 @@ export default function HeaderStudentLayout({ auth, url }) {
                                                 />
                                                 <NavigationMenu
                                                     url={route('students.activities.index')}
-                                                    active={url.startsWith('/students/activities')}
+                                                    active={
+                                                        url.startsWith('/students/activities') ||
+                                                        url.startsWith('/students/request-activities')
+                                                    }
                                                     title="Kegiatan MBKM"
                                                 />
                                                 <NavigationMenu
@@ -153,7 +156,8 @@ export default function HeaderStudentLayout({ auth, url }) {
                                     as="a"
                                     href={route('students.activities.index')}
                                     className={cn(
-                                        url.startsWith('/students/activities')
+                                        url.startsWith('/students/activities') ||
+                                            url.startsWith('/students/request-activities')
                                             ? 'bg-blue-500 text-white'
                                             : 'text-white hover:bg-blue-500',
                                         'block rounded-md px-3 py-2 text-base font-medium',

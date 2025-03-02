@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\ActivityType;
 use App\Enums\MessageType;
+use App\Enums\StudentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ActivityRequest;
 use App\Http\Resources\Admin\ActivityResource;
@@ -21,9 +22,11 @@ class ActivityController extends Controller
     {
         $activities = Activity::query()
             ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.type', 'activities.slug', 'activities.created_at'])
+            ->where('status', StudentStatus::APPROVED)
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with('partner', 'courses')
+            ->latest('created_at')
             ->paginate(request()->load ?? 10);
         
         return inertia('Admin/Activities/Index', [
@@ -79,6 +82,7 @@ class ActivityController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'type' => $request->type,
+                'status' => StudentStatus::APPROVED
             ]);
 
             if ($request->has('courses')) {

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PartnerRequest extends FormRequest
+class PartnerStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->user()->hasRole('Admin'); // Already logged in and role is admin
+        return auth()->check() && auth()->user()->hasRole('Student');
     }
 
     /**

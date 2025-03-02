@@ -87,7 +87,7 @@ export default function Sidebar({ auth, url }) {
                             icon={IconBriefcase}
                         />
                         <NavLink
-                            url="#"
+                            url={route('admin.request-activities.index')}
                             active={url.startsWith('/admin/request-activities')}
                             title="Pengajuan Kegiatan"
                             icon={IconScript}

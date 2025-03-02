@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Enums\StudentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\ActivityResource;
 use App\Http\Resources\Lecturer\ActivityLecturerResource;
@@ -16,9 +17,11 @@ class ActivityStudentController extends Controller
     {
         $activities = Activity::query()
             ->select(['activities.id', 'activities.partner_id', 'activities.name', 'activities.description', 'activities.type', 'activities.slug', 'activities.created_at'])
+            ->where('status', StudentStatus::APPROVED)
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with('partner', 'courses')
+            ->latest('created_at')
             ->paginate(request()->load ?? 9);
         
         return inertia('Students/Activities/Index', [
