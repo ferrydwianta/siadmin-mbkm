@@ -93,6 +93,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::delete('activity-registrations/destroy/{activityRegistration}', 'destroy')->name('admin.activity-registrations.destroy');
         Route::put('activity-registrations/approve/{activityRegistration}', 'approve')->name('admin.activity-registrations.approve');
         Route::put('activity-registrations/grades/{activityRegistration}', 'grades')->name('admin.activity-registrations.grades');
+        Route::get('activity-registrations/export/{academicYear}', 'export')->name('admin.activity-registrations.export');
     });
 
     Route::controller(RequestActivityController::class)->group(function(){

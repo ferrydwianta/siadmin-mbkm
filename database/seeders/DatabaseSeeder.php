@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         ]));
 
         $student->student()->create([
-            'student_number' => str()->padLeft(mt_rand(0, 999999), 6, '0'),
+            'student_number' => '124200000',
             'semester' => 1,
             'batch' => 2021,
         ]);

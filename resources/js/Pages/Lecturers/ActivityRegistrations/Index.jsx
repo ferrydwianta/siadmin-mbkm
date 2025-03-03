@@ -1,4 +1,5 @@
 import EmptyState from '@/Components/EmptyState';
+import { ExportActivityRegistration } from '@/Components/ExportActivityRegistration';
 import HeaderTitle from '@/Components/HeaderTitle';
 import PaginationTable from '@/Components/PaginationTable';
 import ShowFilter from '@/Components/ShowFilter';
@@ -40,6 +41,11 @@ export default function Index(props) {
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
                     icon={IconNotes}
+                />
+
+                <ExportActivityRegistration
+                    academicYears={props.academicYears}
+                    direction={'lecturers.activity-registrations.export'}
                 />
             </div>
 

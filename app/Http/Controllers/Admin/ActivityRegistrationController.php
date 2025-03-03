@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\MessageType;
 use App\Enums\StudentStatus;
+use App\Exports\ActivityRegistrationExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ActivityRegistrationGradesRequest;
 use App\Http\Requests\Admin\ActivityRegistrationRequest;
 use App\Http\Resources\Admin\ActivityRegistrationResource;
 use App\Http\Resources\Student\ActivityRegistrationStudentResource;
+use App\Models\AcademicYear;
 use App\Models\ActivityRegistration;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Response;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 use function Pest\Laravel\delete;
@@ -46,6 +49,10 @@ class ActivityRegistrationController extends Controller
                 'load' => 10
             ],
             'statuses' => StudentStatus::options(),
+            'academicYears' => AcademicYear::query()->select('id', 'name', 'semester')->orderBy('name')->get()->map(fn($item) => [
+                'value' => $item->id,
+                'label' => $item->name . ' (' . $item->semester->value . ')',
+            ]),
         ]);
     }
 
@@ -91,7 +98,7 @@ class ActivityRegistrationController extends Controller
     }
 
     public function grades(ActivityRegistration $activityRegistration, ActivityRegistrationGradesRequest $request): RedirectResponse
-    {   
+    {
         try {
             DB::beginTransaction();
 
@@ -100,7 +107,7 @@ class ActivityRegistrationController extends Controller
                     ->where('id', $conversionData['id'])
                     ->update(['grade' => $conversionData['grade']]);
             }
-            
+
             DB::commit();
 
             flashMessage('Berhasil menambahkan nilai konversi');
@@ -110,5 +117,14 @@ class ActivityRegistrationController extends Controller
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
             return to_route('admin.activity-registrations.index');
         }
+    }
+
+    public function export(AcademicYear $academicYear)
+    {
+        $sanitizedName = str_replace(['/', '\\'], '-', $academicYear->name);
+        $semester = $academicYear->semester->value;
+        $fileName = 'laporan_mbkm_' . str_replace(' ', '_', $sanitizedName) . '_' . $semester . '.xlsx';
+
+        return Excel::download(new ActivityRegistrationExport($academicYear->id), $fileName);
     }
 }

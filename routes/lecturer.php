@@ -25,5 +25,6 @@ Route::prefix('lecturers')->middleware(['auth', 'role:Lecturer'])->group(functio
 
     Route::controller(ActivityRegistrationLecturerController::class)->group(function(){
         Route::get('activity-registrations', 'index')->name('lecturers.activity-registrations.index');
+        Route::get('activity-registrations/export/{academicYear}', 'export')->name('lecturers.activity-registrations.export');
     });
 });
