@@ -46,5 +46,8 @@ class DatabaseSeeder extends Seeder
             'batch' => 2021,
         ]);
 
+
+        $this->call(CourseSeeder::class);
+        $this->call(PartnerSeeder::class);
     }
 }

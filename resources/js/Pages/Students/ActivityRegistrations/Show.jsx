@@ -171,7 +171,7 @@ export default function Show(props) {
 
             {registration.status === STUDENTSTATUS.APPROVED && (
                 <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
-                    <h1 className="text-2xl font-semibold">Unggah Laporan Akhir</h1>
+                    <h1 className="text-2xl font-semibold">Laporan Akhir</h1>
                     <form onSubmit={onHandleSubmit} className="space-y-4">
                         {data.document && registration.document ? (
                             <div className="space-x-2">

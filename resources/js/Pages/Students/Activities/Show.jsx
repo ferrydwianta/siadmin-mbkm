@@ -63,7 +63,7 @@ export default function Show(props) {
                     </div>
                 </div>
 
-                <div className="flex items-center">
+                <div className="mt-2 flex items-center">
                     <div className="flex items-center gap-x-2 pr-4">
                         <IconMap className="h-5 w-5" />
                         <p className="max-w-sm text-sm text-gray-600">
