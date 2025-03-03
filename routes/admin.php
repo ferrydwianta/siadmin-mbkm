@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\ActivityRegistrationController;
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\LecturerController;
@@ -100,5 +101,14 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function(){
         Route::get('request-activities', 'index')->name('admin.request-activities.index');
         Route::delete('request-activities/destroy/{activity:slug}', 'destroy')->name('admin.request-activities.destroy');
         Route::put('request-activities/approve/{activity:slug}', 'approve')->name('admin.request-activities.approve');
+    });
+
+    Route::controller(AnnouncementController::class)->group(function(){
+        Route::get('announcements', 'index')->name('admin.announcements.index');
+        Route::get('announcements/create', 'create')->name('admin.announcements.create');
+        Route::post('announcements/create', 'store')->name('admin.announcements.store');
+        Route::get('announcements/edit/{announcement}', 'edit')->name('admin.announcements.edit');
+        Route::put('announcements/edit/{announcement}', 'update')->name('admin.announcements.update');
+        Route::delete('announcements/destroy/{announcement}', 'destroy')->name('admin.announcements.destroy');
     });
 });

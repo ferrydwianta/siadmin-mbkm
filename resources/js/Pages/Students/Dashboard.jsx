@@ -1,7 +1,7 @@
 import CardStat from '@/Components/CardStat';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import StudentLayout from '@/Layouts/StudentLayout';
-import { formatDateIndo } from '@/lib/utils';
+import { cn, formatDateIndo } from '@/lib/utils';
 import { IconBooks, IconBuildings, IconCalendar, IconPencil } from '@tabler/icons-react';
 
 export default function Dashboard(props) {
@@ -71,28 +71,30 @@ export default function Dashboard(props) {
                 </div>
             )}
 
-            {/* {props.announcements.length > 0 && (
-                <div className="flex flex-col items-start gap-4 rounded-lg mb-2">
+            {props.announcements.length > 0 && (
+                <div className="mb-2 flex flex-col items-start gap-4 rounded-lg">
                     <h3 className="text-xl font-semibold">Pengumuman</h3>
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 w-full">
+                    <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
                         {props.announcements.map((announcement, index) => (
-                            <div className="rounded-xl p-4 border border-gray-200">
-                                <div className='flex flex-row gap-x-4'>
-                                    <p className="w-12 h-8 bg-gray-100 text-gray-800 rounded-md text-sm font-semibold flex items-center justify-center">
+                            <div className="rounded-xl border border-gray-200 p-4">
+                                <div className="flex flex-row items-start gap-x-4">
+                                    <p className="flex items-center justify-center rounded-md bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-800">
                                         {index + 1}
                                     </p>
                                     <div>
-                                        <h3 className="text-md font-semibold">{announcement.title}</h3>
-                                        <p className="text-sm text-muted-foreground mt-0">
-                                            {announcement.description}
-                                        </p>
+                                        <h3
+                                            className={cn('text-md font-semibold', !announcement.description && 'mt-1')}
+                                        >
+                                            {announcement.title}
+                                        </h3>
+                                        <p className="mt-0 text-sm text-muted-foreground">{announcement.description}</p>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-            )} */}
+            )}
         </div>
     );
 }

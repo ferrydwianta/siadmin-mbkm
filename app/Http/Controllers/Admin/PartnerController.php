@@ -80,7 +80,7 @@ class PartnerController extends Controller
         return inertia('Admin/Partners/Edit', [
             'page_settings' => [
                 'title' => 'Edit Mitra MBKM',
-                'subtitle' => 'Edit Data Mitra MBKM baru. Klik simpan setelah selesai!',
+                'subtitle' => 'Edit Data Mitra MBKM. Klik simpan setelah selesai!',
                 'method' => 'PUT',
                 'action' => route('admin.partners.update', $partner),
             ],

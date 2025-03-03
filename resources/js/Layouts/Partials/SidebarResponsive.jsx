@@ -10,6 +10,7 @@ import {
     IconLogout2,
     IconNotes,
     IconScript,
+    IconSpeakerphone,
     IconUsers,
     IconUsersGroup,
 } from '@tabler/icons-react';
@@ -39,6 +40,12 @@ export default function SidebarResponsive({ auth, url }) {
                             active={url.startsWith('/admin/roles')}
                             title="Peran"
                             icon={IconCircleKey}
+                        />
+                        <NavLink
+                            url={route('admin.announcements.index')}
+                            active={url.startsWith('/admin/announcements')}
+                            title="Pengumuman"
+                            icon={IconSpeakerphone}
                         />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
