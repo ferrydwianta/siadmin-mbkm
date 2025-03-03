@@ -18,7 +18,8 @@ class ActivityRegistration extends Model
         'schedule_id',
         'status',
         'notes',
-        'member_type'
+        'member_type',
+        'document',
     ];
 
     protected function casts(): array

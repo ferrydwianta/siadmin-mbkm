@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { flashMessage, formatDateIndo, STUDENTSTATUS } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
-import { IconEye } from '@tabler/icons-react';
+import { IconDownload, IconEye } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -49,7 +49,7 @@ export function Detail({ activityRegistration, action }) {
                 </Button>
             </SheetTrigger>
 
-            <SheetContent side="right">
+            <SheetContent side="right" className="overflow-y-auto">
                 <SheetHeader>
                     <SheetTitle className="font-bold">Detail Pendaftaran Kegiatan MBKM</SheetTitle>
                     <SheetDescription>
@@ -72,6 +72,18 @@ export function Detail({ activityRegistration, action }) {
                         </span>
                     ) : (
                         <span className="text-sm italic text-gray-400">Belum ada jadwal</span>
+                    )}
+
+                    {activityRegistration.document && (
+                        <>
+                            <h3 className="text-md mt-4 font-semibold">Laporan Akhir</h3>
+                            <Button variant="blue" size="sm" className="w-32" asChild>
+                                <a href={activityRegistration.document} download>
+                                    <IconDownload className="size-4" />
+                                    Document
+                                </a>
+                            </Button>
+                        </>
                     )}
 
                     <h3 className="text-md mt-4 font-semibold">Konversi SKS</h3>

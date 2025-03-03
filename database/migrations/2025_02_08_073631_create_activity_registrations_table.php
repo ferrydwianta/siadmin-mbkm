@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('member_type')->default(MemberType::PERSONAL->value);
             $table->string('status')->default(StudentStatus::PENDING->value);
             $table->string('notes')->nullable();
+            $table->string('document')->nullable();
             $table->timestamps();
         });
     }

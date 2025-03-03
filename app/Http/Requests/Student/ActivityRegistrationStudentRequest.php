@@ -22,10 +22,9 @@ class ActivityRegistrationStudentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            // rules for courses conversion
+        $rules = [
             'conversions' => [
-                'nullable', 
+                'nullable',
                 'array',
                 function ($attribute, $value, $fail) {
                     $totalCredits = Course::whereIn('id', $value)->sum('credit');
@@ -34,21 +33,29 @@ class ActivityRegistrationStudentRequest extends FormRequest
                     }
                 },
             ],
-            'conversions.*' => [
-                'exists:courses,id'
-            ], 
-            'member_type' => [
-                'required',
-                'string'
-            ]
+            'conversions.*' => ['exists:courses,id'],
+            'member_type' => ['required', 'string'],
         ];
+
+        if ($this->isMethod('put')) {
+            $rules = [
+                'document' => [
+                    'required',
+                    'mimes:pdf,docx,doc',
+                    'max:3072',
+                ]
+            ];
+        }
+
+        return $rules;
     }
 
     public function attributes(): array
     {
         return [
             'conversions' => 'Konversi Mata kuliah Diambil',
-            'member_type' => 'Jenis Anggota'
+            'member_type' => 'Jenis Anggota',
+            'document' => 'Dokumen Laporan Akhir'
         ];
     }
 }

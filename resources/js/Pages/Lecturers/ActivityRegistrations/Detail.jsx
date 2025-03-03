@@ -2,7 +2,7 @@ import { Button } from '@/Components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/Components/ui/sheet';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { formatDateIndo } from '@/lib/utils';
-import { IconEye } from '@tabler/icons-react';
+import { IconDownload, IconEye } from '@tabler/icons-react';
 
 export function Detail({ activityRegistration }) {
     return (
@@ -13,7 +13,7 @@ export function Detail({ activityRegistration }) {
                 </Button>
             </SheetTrigger>
 
-            <SheetContent side="right">
+            <SheetContent side="right" className="overflow-y-auto">
                 <SheetHeader>
                     <SheetTitle className="font-bold">Detail Pendaftaran Kegiatan MBKM</SheetTitle>
                     <SheetDescription>
@@ -36,6 +36,18 @@ export function Detail({ activityRegistration }) {
                         </span>
                     ) : (
                         <span className="text-sm italic text-gray-400">Belum ada jadwal</span>
+                    )}
+
+                    {activityRegistration.document && (
+                        <>
+                            <h3 className="text-md mt-4 font-semibold">Laporan Akhir</h3>
+                            <Button variant="blue" size="sm" className="w-32" asChild>
+                                <a href={activityRegistration.document} download>
+                                    <IconDownload className="size-4" />
+                                    Document
+                                </a>
+                            </Button>
+                        </>
                     )}
 
                     <h3 className="text-md mt-4 font-semibold">Konversi SKS</h3>

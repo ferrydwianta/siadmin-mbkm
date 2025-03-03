@@ -1,16 +1,38 @@
+import AlertAction from '@/Components/AlertAction';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
+import InputError from '@/Components/InputError';
 import { Thumbnail, ThumbnailFallback, ThumbnailImage } from '@/Components/Thumbnail';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import StudentLayout from '@/Layouts/StudentLayout';
-import { formatDateIndo, STUDENTSTATUS } from '@/lib/utils';
-import { Link } from '@inertiajs/react';
-import { IconArrowLeft, IconBooks, IconNotes } from '@tabler/icons-react';
+import { deleteAction, flashMessage, formatDateIndo, STUDENTSTATUS } from '@/lib/utils';
+import { Link, useForm } from '@inertiajs/react';
+import { IconArrowLeft, IconBooks, IconDownload, IconNotes, IconTrash } from '@tabler/icons-react';
+import { useRef } from 'react';
+import { toast } from 'sonner';
 
 export default function Show(props) {
     const registration = props.activityRegistration;
+    const fileInputDoc = useRef();
+    const { data, setData, post, reset, errors, processing } = useForm({
+        document: registration.document ?? null,
+        _method: props.page_settings.method,
+    });
+    const onHandleSubmit = (e) => {
+        e.preventDefault();
+        post(props.page_settings.action, {
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: (success) => {
+                const flash = flashMessage(success);
+                if (flash) toast[flash.type](flash.message);
+            },
+        });
+    };
+
     return (
         <div className="flex w-full flex-col gap-y-6">
             <div className="flex flex-col items-start justify-between gap-y-4 pb-6 lg:flex-row lg:items-center">
@@ -146,6 +168,53 @@ export default function Show(props) {
                     )}
                 </div>
             </div>
+
+            {registration.status === STUDENTSTATUS.APPROVED && (
+                <div className="flex flex-col items-start gap-4 rounded-xl bg-neutral-50 p-6 shadow-sm">
+                    <h1 className="text-2xl font-semibold">Unggah Laporan Akhir</h1>
+                    <form onSubmit={onHandleSubmit} className="space-y-4">
+                        {data.document && registration.document ? (
+                            <div className="space-x-2">
+                                <Button variant="blue" size="sm" asChild>
+                                    <a href={registration.document} download>
+                                        <IconDownload className="size-4" />
+                                        Document
+                                    </a>
+                                </Button>
+
+                                <AlertAction
+                                    trigger={
+                                        <Button variant="red" size="sm">
+                                            <IconTrash className="size-4" />
+                                        </Button>
+                                    }
+                                    action={() =>
+                                        deleteAction(
+                                            route('students.activity-registrations.delete-document', [registration]),
+                                        )
+                                    }
+                                />
+                            </div>
+                        ) : (
+                            <>
+                                <Input
+                                    type="file"
+                                    name="document"
+                                    id="document"
+                                    onChange={(e) => setData(e.target.name, e.target.files[0])}
+                                    className="bg-white"
+                                    ref={fileInputDoc}
+                                />
+                                {errors.document && <InputError message={errors.document} />}
+
+                                <Button type="submit" variant="blue" disable={processing}>
+                                    Unggah
+                                </Button>
+                            </>
+                        )}
+                    </form>
+                </div>
+            )}
         </div>
     );
 }

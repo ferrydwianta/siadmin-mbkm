@@ -4,6 +4,7 @@ namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ActivityRegistrationResource extends JsonResource
 {
@@ -25,6 +26,7 @@ class ActivityRegistrationResource extends JsonResource
                 'name' => $this->academicYear?->name,
                 'semester' => $this->academicYear?->semester,
             ]),
+            'document' => $this->document ? Storage::url($this->document) : null,
             'student' => new StudentResource($this->whenLoaded('student')),
             'schedule' => new ScheduleResource($this->whenLoaded('schedule')),
             'activity' => new ActivityResource($this->whenLoaded('activity')),

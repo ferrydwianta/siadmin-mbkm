@@ -7,6 +7,7 @@ use App\Http\Resources\Admin\CourseResource;
 use App\Http\Resources\Admin\ScheduleResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ActivityRegistrationStudentResource extends JsonResource
 {
@@ -28,13 +29,16 @@ class ActivityRegistrationStudentResource extends JsonResource
                 'name' => $this->academicYear?->name,
                 'semester' => $this->academicYear?->semester,
             ]),
+            'document' => $this->document ? Storage::url($this->document) : null,
             'schedule' => new ScheduleResource($this->whenLoaded('schedule')),
             'activity' => new ActivityResource($this->whenLoaded('activity')),
-            'conversions' => $this->whenLoaded('conversions', fn() => 
+            'conversions' => $this->whenLoaded(
+                'conversions',
+                fn() =>
                 $this->conversions->map(fn($conversion) => [
                     'id' => $conversion->id,
-                    'course' => $conversion->relationLoaded('course') 
-                        ? new CourseResource($conversion->course) 
+                    'course' => $conversion->relationLoaded('course')
+                        ? new CourseResource($conversion->course)
                         : null,
                     'grade' => $conversion->grade,
                 ])

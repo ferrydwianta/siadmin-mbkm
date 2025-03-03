@@ -7,12 +7,14 @@ use App\Enums\MessageType;
 use App\Enums\StudentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\ActivityRegistrationStudentRequest;
+use App\Http\Requests\Student\ActivityRegistrationUploadRequest;
 use App\Http\Resources\Admin\ActivityResource;
 use App\Http\Resources\Student\ActivityRegistrationStudentResource;
 use App\Http\Resources\Student\ActivityStudentResource;
 use App\Models\Activity;
 use App\Models\ActivityRegistration;
 use App\Models\Conversion;
+use App\Traits\HasFile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +23,7 @@ use Throwable;
 
 class ActivityRegistrationStudentController extends Controller
 {
+    use HasFile;
     public function index(): Response
     {
         $activityRegistrations = ActivityRegistration::query()
@@ -29,7 +32,7 @@ class ActivityRegistrationStudentController extends Controller
             ->with(['academicYear', 'activity', 'schedule', 'conversions', 'conversions.course'])
             ->latest('created_at')
             ->paginate(request()->load ?? 10);
-            
+
         return inertia('Students/ActivityRegistrations/Index', [
             'page_settings' => [
                 'title' => 'KegiatanKu',
@@ -111,8 +114,40 @@ class ActivityRegistrationStudentController extends Controller
             'page_settings' => [
                 'title' => 'Detail KegitanKu',
                 'subtitle' => 'Informasi Lengkap Kegiatan MBKM yang Diikuti',
+                'method' => 'PUT',
+                'action' => route('students.activity-registrations.upload', [$activityRegistration])
             ],
             'activityRegistration' => new ActivityRegistrationStudentResource($activityRegistration->load('academicYear', 'activity', 'activity.partner', 'schedule', 'conversions', 'conversions.course'))
         ]);
+    }
+
+    public function upload(ActivityRegistration $activityRegistration, ActivityRegistrationStudentRequest $request): RedirectResponse
+    {
+        try {
+            $activityRegistration->update([
+                'document' =>  $this->update_file($request, $activityRegistration, 'document', 'activity_registrations')
+            ]);
+
+            flashMessage('Berhasil menambahkan dokumen laporan akhir');
+            return back();
+        } catch (Throwable $e) {
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            return back();
+        }
+    }
+
+    public function deleteDocument(ActivityRegistration $activityRegistration): RedirectResponse
+    {
+        try {
+            $activityRegistration->update([
+                'document' =>  $this->delete_file($activityRegistration, 'document')
+            ]);
+
+            flashMessage('Berhasil menghapus laporan akhir');
+            return back();
+        } catch (Throwable $e) {
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
+            return back();
+        }
     }
 }
