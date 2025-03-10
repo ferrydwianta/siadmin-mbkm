@@ -2,6 +2,7 @@ import HeaderTitle from '@/Components/HeaderTitle';
 import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
+import { Checkbox } from '@/Components/ui/checkbox';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import AppLayout from '@/Layouts/AppLayout';
@@ -16,6 +17,7 @@ export default function Create(props) {
         code: '',
         credit: '',
         semester: '',
+        is_open: false,
         _method: props.page_settings.method,
     });
     const onHandleChange = (e) => setData(e.target.name, e.target.value);
@@ -105,6 +107,21 @@ export default function Create(props) {
                                     placeholder="Masukkan semester"
                                 />
                                 {errors.semester && <InputError message={errors.semester} />}
+                            </div>
+
+                            <div className="col-span-full">
+                                <div className="item-top flex space-x-2">
+                                    <Checkbox
+                                        id="is_open"
+                                        name="is_open"
+                                        checked={data.is_open}
+                                        onCheckedChange={(checked) => setData('is_open', checked)}
+                                    />
+                                    <div className="gap-1/5 grid leading-none">
+                                        <Label htmlFor="is_open">Open Semester?</Label>
+                                    </div>
+                                </div>
+                                {errors.is_open && <InputError message={errors.is_open} />}
                             </div>
                         </div>
 

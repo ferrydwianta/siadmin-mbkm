@@ -17,7 +17,7 @@ class CourseController extends Controller
     public function index(): Response
     {
         $courses = Course::query()
-            ->select(['courses.id', 'courses.name', 'courses.credit', 'courses.code', 'courses.semester', 'courses.created_at'])
+            ->select(['courses.id', 'courses.name', 'courses.credit', 'courses.code', 'courses.semester', 'courses.created_at', 'courses.is_open'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->paginate(request()->load ?? 10);
@@ -60,6 +60,7 @@ class CourseController extends Controller
                 'name' => $request->name,
                 'credit' => $request->credit,
                 'semester' => $request->semester,
+                'is_open' => $request->is_open
             ]);
 
             flashMessage(MessageType::CREATED->message('Mata Kuliah'));
@@ -91,6 +92,7 @@ class CourseController extends Controller
                 'name' => $request->name,
                 'credit' => $request->credit,
                 'semester' => $request->semester,
+                'is_open' => $request->is_open
             ]);
 
             flashMessage(MessageType::UPDATED->message('Mata Kuliah'));

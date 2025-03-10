@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->unsignedInteger('credit');
             $table->unsignedInteger('semester')->nullable();
+            $table->boolean('is_open')->default(false);
             $table->timestamps();
         });
     }

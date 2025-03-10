@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Enums\AcademicYearSemester;
 use App\Enums\MemberType;
 use App\Enums\MessageType;
 use App\Enums\StudentStatus;
@@ -65,6 +66,21 @@ class ActivityRegistrationStudentController extends Controller
             return back();
         }
 
+        // Retrieve only courses that match current running semester
+        $currentSemester = activeAcademicYear()->semester;
+        $activity->load([
+            'partner',
+            'courses' => function ($query) use ($currentSemester) {
+                $query->where(function ($q) use ($currentSemester) {
+                    if ($currentSemester === AcademicYearSemester::EVEN) {
+                        $q->whereRaw('semester % 2 = 0');
+                    } else {
+                        $q->whereRaw('semester % 2 != 0'); 
+                    }
+                })->orWhere('is_open', true);
+            }
+        ]);
+
         return inertia('Students/ActivityRegistrations/Create', [
             'page_settings' => [
                 'title' => 'Daftar Kegiatan MBKM',
@@ -72,7 +88,7 @@ class ActivityRegistrationStudentController extends Controller
                 'method' => 'POST',
                 'action' => route('students.activity-registrations.store', [$activity])
             ],
-            'activity' => new ActivityStudentResource($activity->load('partner', 'courses')),
+            'activity' => new ActivityStudentResource($activity),
             'memberTypes' => MemberType::options()
         ]);
     }

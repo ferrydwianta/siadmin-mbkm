@@ -41,6 +41,10 @@ class CourseRequest extends FormRequest
                 'string',
                 'min:2',
                 'max:50',
+            ],
+            'is_open' => [
+                'nullable',
+                'boolean'
             ]
         ];
     }
@@ -52,6 +56,7 @@ class CourseRequest extends FormRequest
             'credit' => 'Satuan Kredit Semester (SKS)',
             'semester' => 'Semester',
             'code' => 'Kode Mata Kuliah',
+            'is_open' => 'Apakah Open Semester'
         ];
     }
 }

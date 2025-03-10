@@ -107,14 +107,21 @@ export default function Index(props) {
                                 {/* Courses */}
                                 <div className="mt-4 flex flex-wrap gap-2">
                                     {activity.courses.length > 0 ? (
-                                        activity.courses.map((course) => (
-                                            <span
-                                                key={course.id}
-                                                className="rounded-full px-3 py-1.5 text-xs font-medium text-blue-500 ring-1 ring-inset ring-blue-500"
-                                            >
-                                                {course.name}
-                                            </span>
-                                        ))
+                                        <>
+                                            {activity.courses.slice(0, 5).map((course) => (
+                                                <span
+                                                    key={course.id}
+                                                    className="rounded-full px-3 py-1.5 text-xs font-medium text-blue-500 ring-1 ring-inset ring-blue-500"
+                                                >
+                                                    {course.name}
+                                                </span>
+                                            ))}
+                                            {activity.courses.length > 5 && (
+                                                <span className="rounded-full px-3 py-1.5 text-xs font-medium text-slate-500 ring-1 ring-inset ring-slate-500">
+                                                    +{activity.courses.length - 5} MKA
+                                                </span>
+                                            )}
+                                        </>
                                     ) : (
                                         <span className="italic text-gray-400">Tidak ada konversi MKA</span>
                                     )}

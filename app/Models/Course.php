@@ -14,7 +14,8 @@ class Course extends Model
         'name',
         'code',
         'credit',
-        'semester'
+        'semester',
+        'is_open'
     ];
 
     protected function code(): Attribute

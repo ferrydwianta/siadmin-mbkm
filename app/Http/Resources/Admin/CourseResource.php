@@ -21,6 +21,7 @@ class CourseResource extends JsonResource
             'credit' => $this->credit,
             'semester' => $this->semester,
             'created_at' => $this->created_at,
+            'is_open' => $this->is_open ? 'Open Semester' : 'Tidak'
         ];
     }
 }

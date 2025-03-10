@@ -147,6 +147,8 @@ export default function Index(props) {
                                         </Button>
                                     </TableHead>
 
+                                    <TableHead>Open Semester?</TableHead>
+
                                     <TableHead>
                                         <Button
                                             variant="ghost"
@@ -184,6 +186,7 @@ export default function Index(props) {
                                         <TableCell>{course.code}</TableCell>
                                         <TableCell>{course.name}</TableCell>
                                         <TableCell>{course.credit} SKS</TableCell>
+                                        <TableCell>{course.is_open}</TableCell>
                                         <TableCell>{course.semester ? course.semester : '-'}</TableCell>
                                         <TableCell>{formatDateIndo(course.created_at)}</TableCell>
                                         <TableCell>

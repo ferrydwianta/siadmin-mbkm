@@ -22,29 +22,29 @@ class PartnerFactory extends Factory
         // Define structured data
         $records = [
             [
-                'name' => 'Bank CIMB Niaga',
-                'slug' => str()->slug('Bank CIMB Niaga'),
+                'name' => $name = 'Bank CIMB Niaga',
+                'slug' => str()->slug($name),
                 'description' => 'Dukungan 476 jaringan kantor cabang konvensional & syariah di seluruh Indonesia & lebih dari 12.000 karyawan siap memberikan layanan perbankan terpadu',
                 'address' => 'Graha CIMB Niaga. Jl. Jend. Sudirman No.Kav 58, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190',
                 'contact' => '6281349583342',
             ],
             [
-                'name' => 'PT Kalman Group Indonesia',
-                'slug' => str()->slug('PT Kalman Group Indonesia'),
+                'name' =>  $name = 'PT Kalman Group Indonesia',
+                'slug' => str()->slug($name),
                 'description' => 'KALMAN merupakan Perusahaan Marketing Agency pertama yang berdiri di bali pada tahun 2007 hingga saat ini.',
                 'address' => 'Jalan Raya Padang Luwih No.8 Ruko-10, Kec. Kuta Utara, Badung, Bali, 80361',
                 'contact' => '6281254435339',
             ],
             [
-                'name' => 'OPPO INDONESIA MANUFACTURING',
-                'slug' => str()->slug('OPPO INDONESIA MANUFACTURING'),
+                'name' =>  $name = 'OPPO INDONESIA MANUFACTURING',
+                'slug' => str()->slug($name),
                 'description' => 'PT. Bright Mobile Telecommunication (BMT) is the Manufacturing Center of OPPO Indonesia that located at Kawasan Industri Bayur, Tangerang.',
                 'address' => 'Jalan Kawasan Industri Jl. Raya Bayur, Periuk Jaya, Kec. Periuk, Kota Tangerang, Banten 15131',
                 'contact' => '6281369482829',
             ],
         ];
 
-        return $this->faker->randomElement($records);
+        return $this->faker->unique()->randomElement($records);
     }
 
     public function configure()
