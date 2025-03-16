@@ -4,8 +4,8 @@ import { cva } from 'class-variance-authority';
 import { CheckIcon, ChevronDown, XCircle, XIcon } from 'lucide-react';
 import * as React from 'react';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
 import {
     Command,
     CommandEmpty,
@@ -14,9 +14,9 @@ import {
     CommandItem,
     CommandList,
     CommandSeparator,
-} from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Separator } from '@/components/ui/separator';
+} from '@/Components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/Components/ui/popover';
+import { Separator } from '@/Components/ui/separator';
 import { cn } from '@/lib/utils';
 
 /**
