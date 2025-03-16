@@ -18,8 +18,8 @@
     @viteReactRefresh
     @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
     @else
-    <script type="module" src="{{ asset('build/assets/app.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+    <script type="module" src="{{ secure_asset('build/assets/app.js') }}"></script>
+    <link rel="stylesheet" href="{{ secure_asset('build/assets/app.css') }}">
     @endif
     @inertiaHead
 </head>
