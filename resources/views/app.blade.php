@@ -15,8 +15,11 @@
     <!-- Scripts -->
     @routes
     @if (app()->environment('local'))
-        @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+    @viteReactRefresh
+    @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+    @else
+    <script type="module" src="{{ asset('build/assets/app.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
     @endif
     @inertiaHead
 </head>
